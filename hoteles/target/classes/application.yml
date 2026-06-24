@@ -1,5 +1,5 @@
 server:
-  port: '8083'
+  port: '8081'
 
 springdoc:
   api-docs:
@@ -9,7 +9,7 @@ springdoc:
 
 spring:
   application:
-    name: usuarios
+    name: hoteles
   flyway:
     enabled: 'true'
     baseline-on-migrate: 'true'
@@ -27,7 +27,7 @@ spring:
       on-profile: dev
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/db_hotel_usuarios_dev?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/db_hotel_hoteles_dev?createDatabaseIfNotExist=true
     driverClassName: com.mysql.cj.jdbc.Driver
     password: ''
   jpa:
@@ -42,7 +42,7 @@ spring:
       on-profile: test
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/db_hotel_usuario_test?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/db_hotel_hoteles_test?createDatabaseIfNotExist=true
     driverClassName: com.mysql.cj.jdbc.Driver
     password: ''
   jpa:
@@ -57,7 +57,7 @@ spring:
       on-profile: prod
   datasource:
     username: root
-    url: jdbc:mysql://localhost:3306/db_hotel_usuario_prod?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/db_hotel_hoteles_prod?createDatabaseIfNotExist=true
     driverClassName: com.mysql.cj.jdbc.Driver
     password: ''
   jpa:
