@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: hoteles-service
+              uri: http://127.0.0.1:8081
+              predicates:
+                - Path=/api/v1/hoteles/**
+
+            - id: productos-service
+              uri: http://127.0.0.1:8082
+              predicates:
+                - Path=/api/v1/productos/**
+
+            - id: usuarios-service
+              uri: http://127.0.0.1:8083
+              predicates:
+                - Path=/api/v1/usuarios/**
