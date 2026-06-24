@@ -48,7 +48,7 @@ public class TipoHabitacionService {
     }
 
 private TipoHabitacionDTO convertirADTO(TipoHabitacion tipo) {
-        if (tipo == null) return null; 
+        if (tipo == null) return null;
         TipoHabitacionDTO dto = new TipoHabitacionDTO();
 
         dto.setIdTipo(tipo.getIdTipo());

@@ -37,12 +37,12 @@
         public HabitacionDTO buscarPorId(Integer id_habitacion) {
             Habitacion habitacion = habitacionRepository.findById(id_habitacion)
                     .orElseThrow(() -> new RuntimeException("La habitacion no existe"));
-            return convertirADTO(habitacion); 
+            return convertirADTO(habitacion);
         }
 
         public HabitacionDTO guardarHabitacion(HabitacionDTO dto) {
         Habitacion habitacion = new Habitacion();
-        habitacion.setIdHotel(dto.getIdHotel()); 
+        habitacion.setIdHotel(dto.getIdHotel());
         habitacion.setNumero(dto.getNumero());
         habitacion.setEstado(dto.getEstado());
 
