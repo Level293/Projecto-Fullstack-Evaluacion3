@@ -19,7 +19,9 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.hotel.producto.DTO.ReservaHabitacionDTO;
+import com.hotel.producto.DTO.HabitacionDTO;
 import com.hotel.producto.Repository.ReservaHabitacionRepository;
+import com.hotel.producto.Repository.HabitacionRepository; // AGREGADO: Necesario para el flujo de guardado
 import com.hotel.producto.model.ReservaHabitacion;
 import com.hotel.producto.model.Habitacion;
 import com.hotel.producto.Services.ReservaHabitacionService;
@@ -30,10 +32,13 @@ import net.datafaker.Faker;
 class ReservaHabitacionApplicationTest {
 
     @Mock
-    private ReservaHabitacionRepository reservaHabitacionRepository; // Simulamos acceso a la tabla reserva_habitacion
+    private ReservaHabitacionRepository reservaHabitacionRepository; 
+
+    @Mock
+    private HabitacionRepository habitacionRepository; // AGREGADO: Mock requerido por la validación interna del Service
 
     @InjectMocks
-    private ReservaHabitacionService reservaHabitacionService; // Inyectamos el Mock en el servicio real
+    private ReservaHabitacionService reservaHabitacionService; 
 
     private Faker faker = new Faker();
 
@@ -41,33 +46,29 @@ class ReservaHabitacionApplicationTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
+
     @Test
     void testBuscarPorId_Exitoso() {
-        // GIVEN: Escenario con datos aleatorios simulados para una reserva de habitación
         Integer idReservaHabSimulado = 1;
         Integer precioAleatorio = faker.number().numberBetween(45000, 120000);
         Integer idReservaPadre = faker.number().numberBetween(100, 500);
 
-        // Creamos la habitación relacionada requerida por el modelo
         Habitacion habitacionFalsa = new Habitacion();
         habitacionFalsa.setIdHabitacion(101);
         habitacionFalsa.setNumero(202);
         habitacionFalsa.setEstado("Ocupada");
 
-        // Construimos la entidad ReservaHabitacion
         ReservaHabitacion reservaHabFalsa = new ReservaHabitacion();
-        reservaHabFalsa.setIdReservaHab(idReservaHabSimulado);
+        // NOTA: Asegúrate de si tu modelo usa 'setIdReservaHab' o 'setIdReservaHabitacion' según el Service
+        reservaHabFalsa.setIdReservaHab(idReservaHabSimulado); 
         reservaHabFalsa.setPrecioNoche(precioAleatorio);
         reservaHabFalsa.setIdReserva(idReservaPadre);
         reservaHabFalsa.setHabitacion(habitacionFalsa);
 
-        // Entrenamos al repositorio para retornar la reserva armada
         when(reservaHabitacionRepository.findById(idReservaHabSimulado)).thenReturn(Optional.of(reservaHabFalsa));
 
-        // WHEN: Ejecutamos el método del servicio
         ReservaHabitacionDTO resultado = reservaHabitacionService.buscarPorId(idReservaHabSimulado);
 
-        // THEN: Validamos la transformación exitosa a DTO
         assertNotNull(resultado, "El DTO de la reserva de habitación no debería ser nulo");
         assertEquals(precioAleatorio, resultado.getPrecioNoche(), "El precio de la noche debe coincidir con el simulado");
         assertEquals(idReservaPadre, resultado.getIdReserva(), "El ID de la reserva padre debe coincidir");
@@ -80,7 +81,6 @@ class ReservaHabitacionApplicationTest {
         Integer idInexistente = 99;
         when(reservaHabitacionRepository.findById(idInexistente)).thenReturn(Optional.empty());
 
-        // Valida que el servicio arroje un RuntimeException si la reserva no existe
         assertThrows(RuntimeException.class, () -> {
             reservaHabitacionService.buscarPorId(idInexistente);
         });
@@ -90,25 +90,38 @@ class ReservaHabitacionApplicationTest {
 
     @Test
     void testGuardarReservaHab_Exitoso() {
-        // GIVEN: Una entidad que mandamos a guardar
-        ReservaHabitacion reservaAGuardar = new ReservaHabitacion();
-        reservaAGuardar.setPrecioNoche(65000);
-        reservaAGuardar.setIdReserva(12);
+        // GIVEN: Preparamos los DTOs de entrada simulando los datos de Postman
+        HabitacionDTO habitacionDTO = new HabitacionDTO();
+        habitacionDTO.setIdHabitacion(101);
 
-        // Entidad simulada que responde la base de datos con una ID autogenerada (ej. ID 5)
+        ReservaHabitacionDTO dtoAGuardar = new ReservaHabitacionDTO();
+        dtoAGuardar.setPrecioNoche(65000);
+        dtoAGuardar.setIdReserva(12);
+        dtoAGuardar.setHabitacion(habitacionDTO);
+
+        // Simulamos las respuestas de las entidades JPA de los Repositorios
+        Habitacion habitacionExistente = new Habitacion();
+        habitacionExistente.setIdHabitacion(101);
+
         ReservaHabitacion reservaPersistida = new ReservaHabitacion();
-        reservaPersistida.setIdReservaHab(5);
+        reservaPersistida.setIdReservaHab(5); // ID asignada por la Base de Datos simulada
         reservaPersistida.setPrecioNoche(65000);
         reservaPersistida.setIdReserva(12);
+        reservaPersistida.setHabitacion(habitacionExistente);
 
+        // Entrenamos los mocks para responder correctamente a las llamadas internas del Service
+        when(habitacionRepository.findById(101)).thenReturn(Optional.of(habitacionExistente));
         when(reservaHabitacionRepository.save(any(ReservaHabitacion.class))).thenReturn(reservaPersistida);
 
-        // WHEN: Ejecutamos el guardado en el servicio
-        ReservaHabitacion resultado = reservaHabitacionService.guardarReservaHab(reservaAGuardar);
+        // WHEN: Ejecutamos el método con su nuevo nombre y firma DTO
+        ReservaHabitacionDTO resultado = reservaHabitacionService.guardarReservaHabitacion(dtoAGuardar);
 
-        // THEN: Validamos que se asigne la ID simulada de forma exitosa
+        // THEN: Validamos el DTO de salida
         assertNotNull(resultado);
         assertEquals(5, resultado.getIdReservaHab());
+        assertEquals(65000, resultado.getPrecioNoche());
+        
+        verify(habitacionRepository, times(1)).findById(101);
         verify(reservaHabitacionRepository, times(1)).save(any(ReservaHabitacion.class));
     }
 }

@@ -1,5 +1,7 @@
 package com.hotel.producto.DTO;
 
+import com.hotel.producto.model.Habitacion;
+
 import lombok.Data;
 
 @Data
@@ -9,7 +11,9 @@ public class ReservaHabitacionDTO {
 
     private Integer precioNoche;
     
-    private Integer idReserva; 
+    private Integer idReserva;
     
     private HabitacionDTO habitacion;
+
+    private ReservaExternoDTO reservaGeneral;
 }

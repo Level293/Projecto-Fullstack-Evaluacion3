@@ -14,4 +14,8 @@ public class HabitacionDTO {
     private String estado;
     
     private TipoHabitacionDTO tipoHabitacion;
+
+    private HotelExternoDTO hotel;
+
+    private UsuarioExternoDTO usuarioActual;
 }

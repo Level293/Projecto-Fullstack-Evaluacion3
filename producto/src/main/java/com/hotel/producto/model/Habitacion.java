@@ -42,4 +42,9 @@ public class Habitacion {
     @Column(nullable = false, length = 20)
     private String estado;
 
+    public Object getIdUsuario() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getIdUsuario'");
+    }
+
 }

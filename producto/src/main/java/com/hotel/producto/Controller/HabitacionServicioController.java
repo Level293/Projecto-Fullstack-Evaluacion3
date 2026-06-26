@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hotel.producto.DTO.HabitacionServicioDTO;
 import com.hotel.producto.Services.HabitacionServicioService;
-import com.hotel.producto.model.HabitacionServicio;
 
 @RestController
-@RequestMapping("/api/v1/habitacion-servicio")
+// CORREGIDO: Ahora cuelga del path base del Gateway (/api/v1/productos)
+@RequestMapping("/api/v1/productos/habitacion-servicio") 
 public class HabitacionServicioController {
 
     @Autowired
     public HabitacionServicioService habitacionServicioService;
 
+    // GET: http://localhost:8080/api/v1/productos/habitacion-servicio
     @GetMapping
     public ResponseEntity<List<HabitacionServicioDTO>> todosLosHabitacionServicios() {
         List<HabitacionServicioDTO> lista = habitacionServicioService.obtenerTodo();
@@ -33,6 +34,7 @@ public class HabitacionServicioController {
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
 
+    // GET: http://localhost:8080/api/v1/productos/habitacion-servicio/{id}
     @GetMapping("/{id}")
     public ResponseEntity<HabitacionServicioDTO> buscarPorId(@PathVariable Integer id) {
         try {
@@ -43,16 +45,20 @@ public class HabitacionServicioController {
         }
     }
 
+    // POST: http://localhost:8080/api/v1/productos/habitacion-servicio
+    // CORREGIDO: Cambiado de entidad a DTO para alinearse con los cambios del Service
     @PostMapping
-    public ResponseEntity<HabitacionServicio> agregarHabitacionServicio(@RequestBody HabitacionServicio hs) {
+    public ResponseEntity<HabitacionServicioDTO> agregarHabitacionServicio(@RequestBody HabitacionServicioDTO hsDTO) {
         try {
-            HabitacionServicio guardado = habitacionServicioService.guardarHabitacionServicio(hs);
+            HabitacionServicioDTO guardado = habitacionServicioService.guardarHabitacionServicio(hsDTO);
             return new ResponseEntity<>(guardado, HttpStatus.CREATED);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
+    // DELETE: http://localhost:8080/api/v1/productos/habitacion-servicio/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarHabitacionServicio(@PathVariable Integer id) {
         String resultado = habitacionServicioService.eliminar(id);

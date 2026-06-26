@@ -4,23 +4,27 @@ server:
 spring:
   application:
     name: gateway
-
   cloud:
     gateway:
       server:
         webmvc:
           routes:
             - id: hoteles-service
-              uri: http://127.0.0.1:8081
+              uri: lb://hoteles-service
               predicates:
                 - Path=/api/v1/hoteles/**
 
             - id: productos-service
-              uri: http://127.0.0.1:8082
+              uri: lb://productos-service
               predicates:
                 - Path=/api/v1/productos/**
 
             - id: usuarios-service
-              uri: http://127.0.0.1:8083
+              uri: lb://usuarios-service
               predicates:
                 - Path=/api/v1/usuarios/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
