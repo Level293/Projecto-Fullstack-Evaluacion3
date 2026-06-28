@@ -57,7 +57,7 @@ public class TipoHabitacionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminarTipoHabitacion(@PathVariable Integer id) {
-        String resultado = tipoHabitacionService.eliminar(id);    
+        String resultado = tipoHabitacionService.eliminar(id);
         if (resultado.toLowerCase().contains("eliminado")) {
             return new ResponseEntity<>(resultado, HttpStatus.OK);
         } else {

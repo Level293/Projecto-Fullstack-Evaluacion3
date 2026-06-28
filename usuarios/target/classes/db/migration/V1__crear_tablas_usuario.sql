@@ -1,11 +1,11 @@
--- 1. Tabla: Roles
-CREATE TABLE roles (
+-- 1. Tabla: Roles (Corrección: Se quitó la coma al final de la columna nombre)
+CREATE TABLE IF NOT EXISTS roles (
     ID_Roles INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
+    nombre VARCHAR(100) NOT NULL
 );
 
 -- 2. Tabla: Usuarios (Depende de Roles)
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     correo VARCHAR(255) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE usuarios (
 );
 
 -- 3. Tabla independiente: Reservas
-CREATE TABLE reservas (
+CREATE TABLE IF NOT EXISTS reservas (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
     fecha_inicio DATE,
     fecha_fin DATE,
@@ -23,7 +23,7 @@ CREATE TABLE reservas (
 );
 
 -- 4. Tabla: Pago (Depende de Reservas)
-CREATE TABLE pago (
+CREATE TABLE IF NOT EXISTS pago (
     ID_pago INT AUTO_INCREMENT PRIMARY KEY,
     ID_reserva INT NOT NULL,
     monto INT NOT NULL,
@@ -34,7 +34,8 @@ CREATE TABLE pago (
 );
 
 
---Inserto valores en las tablas
+-- === Inserción de valores ===
+
 INSERT INTO roles (nombre) VALUES ('Administracion');
 INSERT INTO roles (nombre) VALUES ('Limpieza');
 INSERT INTO roles (nombre) VALUES ('Cliente');
@@ -45,7 +46,6 @@ INSERT INTO usuarios (nombre, correo, rol_id) VALUES ('Bat man', 'Batman32@gmail
 
 INSERT INTO reservas (fecha_inicio, fecha_fin, estado, total) VALUES ('2024-05-10', '2024-05-15', 'Confirmada', 35000);
 INSERT INTO reservas (fecha_inicio, fecha_fin, estado, total) VALUES ('2024-05-11', '2024-05-18', 'Pendiente', 57000);
-
 
 INSERT INTO pago (ID_reserva, monto, fecha_pago, metodo, estado) VALUES (1, 35000, '2026-05-20', 'Efectivo', true);
 INSERT INTO pago (ID_reserva, monto, fecha_pago, metodo, estado) VALUES (2, 57000, '2026-04-30', 'Tarjeta', false);

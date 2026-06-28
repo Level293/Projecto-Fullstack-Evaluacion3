@@ -21,7 +21,10 @@ public class TipoHabitacionService {
 
     @Autowired
     private WebClient.Builder webClientBuilder;
-    
+
+    @Autowired
+    private HabitacionValidaciones habitacionValidaciones;
+
     public List<TipoHabitacionDTO> obtenerTodo() {
         return tipoHabitacionRepository.findAll().stream()
                 .map(this::convertirADTO)
@@ -35,6 +38,11 @@ public class TipoHabitacionService {
     }
 
     public TipoHabitacionDTO guardarTipo(TipoHabitacion tipo) {
+        // Condicional corregida con la negación explícita (!)
+        if (!habitacionValidaciones.elPrecioEsValido(tipo.getPrecio())) {
+            throw new RuntimeException("El precio del tipo de habitación debe ser mayor a cero.");
+        }
+        
         TipoHabitacion guardado = tipoHabitacionRepository.save(tipo);
         return convertirADTO(guardado);
     }
@@ -47,7 +55,7 @@ public class TipoHabitacionService {
         return "Tipo de habitacion eliminado.";
     }
 
-private TipoHabitacionDTO convertirADTO(TipoHabitacion tipo) {
+    private TipoHabitacionDTO convertirADTO(TipoHabitacion tipo) {
         if (tipo == null) return null;
         TipoHabitacionDTO dto = new TipoHabitacionDTO();
 

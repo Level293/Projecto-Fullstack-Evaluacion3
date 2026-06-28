@@ -49,11 +49,20 @@ eureka/pom.xml
 eureka/src/main/java/com/hotel/eureka/EurekaApplication.java
 eureka/src/main/resources/application.yaml
 eureka/src/test/java/com/hotel/eureka/EurekaApplicationTests.java
+gateway/.gitattributes
+gateway/.gitignore
+gateway/.mvn/wrapper/maven-wrapper.properties
+gateway/mvnw
+gateway/mvnw.cmd
+gateway/pom.xml
+gateway/src/main/java/com/Hotel/gateway/GatewayApplication.java
+gateway/src/main/resources/application.yaml
 hoteles/.mvn/wrapper/maven-wrapper.properties
 hoteles/HELP.md
 hoteles/mvnw
 hoteles/mvnw.cmd
 hoteles/pom.xml
+hoteles/src/main/java/com/Hotel/config/WebClientConfig.java
 hoteles/src/main/java/com/Hotel/hoteles/controller/ComunaController.java
 hoteles/src/main/java/com/Hotel/hoteles/controller/HotelController.java
 hoteles/src/main/java/com/Hotel/hoteles/controller/RegionController.java
@@ -102,6 +111,7 @@ producto/src/main/java/com/hotel/producto/Repository/ServicioRepository.java
 producto/src/main/java/com/hotel/producto/Repository/TipoHabitacionRepository.java
 producto/src/main/java/com/hotel/producto/Services/HabitacionService.java
 producto/src/main/java/com/hotel/producto/Services/HabitacionServicioService.java
+producto/src/main/java/com/hotel/producto/Services/HabitacionValidaciones.java
 producto/src/main/java/com/hotel/producto/Services/ReservaHabitacionService.java
 producto/src/main/java/com/hotel/producto/Services/ServicioService.java
 producto/src/main/java/com/hotel/producto/Services/TipoHabitacionService.java
@@ -110,6 +120,7 @@ producto/src/main/resources/db/migration/V1__crear_tablas_producto.sql
 producto/src/test/java/com/hotel/producto/ProductoApplicationTests.java
 producto/src/test/java/com/hotel/producto/service/HabitacionApplicationTest.java
 producto/src/test/java/com/hotel/producto/service/HabitacionServicioApplicationTest.java
+producto/src/test/java/com/hotel/producto/service/HabitacionValidacionesApplicationTest.java
 producto/src/test/java/com/hotel/producto/service/ReservaHabitacionApplicationTest.java
 producto/src/test/java/com/hotel/producto/service/ServicioApplicationTest.java
 producto/src/test/java/com/hotel/producto/service/TipoHabitacionApplication.java
@@ -140,6 +151,7 @@ usuarios/src/main/java/com/Hotel/usuarios/service/PagoService.java
 usuarios/src/main/java/com/Hotel/usuarios/service/ReservasService.java
 usuarios/src/main/java/com/Hotel/usuarios/service/RolesService.java
 usuarios/src/main/java/com/Hotel/usuarios/service/UsuarioService.java
+usuarios/src/main/java/com/Hotel/usuarios/service/UsuarioValidaciones.java
 usuarios/src/main/java/com/Hotel/usuarios/UsuariosApplication.java
 usuarios/src/main/resources/application.yml
 usuarios/src/main/resources/db/migration/V1_crear_tablas_usuario.sql
@@ -147,11 +159,1105 @@ usuarios/src/test/java/com/Hotel/usuarios/Service/PagoAplicationTests.java
 usuarios/src/test/java/com/Hotel/usuarios/Service/ReservasAplicationTests.java
 usuarios/src/test/java/com/Hotel/usuarios/Service/RolesAplicationTest.java
 usuarios/src/test/java/com/Hotel/usuarios/Service/UsuarioAplicationTests.java
+usuarios/src/test/java/com/Hotel/usuarios/Service/UsuarioValidacionesApplicationTest.java
 usuarios/src/test/java/com/Hotel/usuarios/UsuariosApplicationTests.java
 </directory_structure>
 
 <files>
 This section contains the contents of the repository's files.
+
+<file path="gateway/.gitattributes">
+/mvnw text eol=lf
+*.cmd text eol=crlf
+</file>
+
+<file path="gateway/.gitignore">
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+</file>
+
+<file path="gateway/.mvn/wrapper/maven-wrapper.properties">
+wrapperVersion=3.3.4
+distributionType=only-script
+distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.16/apache-maven-3.9.16-bin.zip
+</file>
+
+<file path="gateway/mvnw">
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Apache Maven Wrapper startup batch script, version 3.3.4
+#
+# Optional ENV vars
+# -----------------
+#   JAVA_HOME - location of a JDK home dir, required when download maven via java source
+#   MVNW_REPOURL - repo url base for downloading maven distribution
+#   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+#   MVNW_VERBOSE - true: enable verbose log; debug: trace the mvnw script; others: silence the output
+# ----------------------------------------------------------------------------
+
+set -euf
+[ "${MVNW_VERBOSE-}" != debug ] || set -x
+
+# OS specific support.
+native_path() { printf %s\\n "$1"; }
+case "$(uname)" in
+CYGWIN* | MINGW*)
+  [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
+  native_path() { cygpath --path --windows "$1"; }
+  ;;
+esac
+
+# set JAVACMD and JAVACCMD
+set_java_home() {
+  # For Cygwin and MinGW, ensure paths are in Unix format before anything is touched
+  if [ -n "${JAVA_HOME-}" ]; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ]; then
+      # IBM's JDK on AIX uses strange locations for the executables
+      JAVACMD="$JAVA_HOME/jre/sh/java"
+      JAVACCMD="$JAVA_HOME/jre/sh/javac"
+    else
+      JAVACMD="$JAVA_HOME/bin/java"
+      JAVACCMD="$JAVA_HOME/bin/javac"
+
+      if [ ! -x "$JAVACMD" ] || [ ! -x "$JAVACCMD" ]; then
+        echo "The JAVA_HOME environment variable is not defined correctly, so mvnw cannot run." >&2
+        echo "JAVA_HOME is set to \"$JAVA_HOME\", but \"\$JAVA_HOME/bin/java\" or \"\$JAVA_HOME/bin/javac\" does not exist." >&2
+        return 1
+      fi
+    fi
+  else
+    JAVACMD="$(
+      'set' +e
+      'unset' -f command 2>/dev/null
+      'command' -v java
+    )" || :
+    JAVACCMD="$(
+      'set' +e
+      'unset' -f command 2>/dev/null
+      'command' -v javac
+    )" || :
+
+    if [ ! -x "${JAVACMD-}" ] || [ ! -x "${JAVACCMD-}" ]; then
+      echo "The java/javac command does not exist in PATH nor is JAVA_HOME set, so mvnw cannot run." >&2
+      return 1
+    fi
+  fi
+}
+
+# hash string like Java String::hashCode
+hash_string() {
+  str="${1:-}" h=0
+  while [ -n "$str" ]; do
+    char="${str%"${str#?}"}"
+    h=$(((h * 31 + $(LC_CTYPE=C printf %d "'$char")) % 4294967296))
+    str="${str#?}"
+  done
+  printf %x\\n $h
+}
+
+verbose() { :; }
+[ "${MVNW_VERBOSE-}" != true ] || verbose() { printf %s\\n "${1-}"; }
+
+die() {
+  printf %s\\n "$1" >&2
+  exit 1
+}
+
+trim() {
+  # MWRAPPER-139:
+  #   Trims trailing and leading whitespace, carriage returns, tabs, and linefeeds.
+  #   Needed for removing poorly interpreted newline sequences when running in more
+  #   exotic environments such as mingw bash on Windows.
+  printf "%s" "${1}" | tr -d '[:space:]'
+}
+
+scriptDir="$(dirname "$0")"
+scriptName="$(basename "$0")"
+
+# parse distributionUrl and optional distributionSha256Sum, requires .mvn/wrapper/maven-wrapper.properties
+while IFS="=" read -r key value; do
+  case "${key-}" in
+  distributionUrl) distributionUrl=$(trim "${value-}") ;;
+  distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
+  esac
+done <"$scriptDir/.mvn/wrapper/maven-wrapper.properties"
+[ -n "${distributionUrl-}" ] || die "cannot read distributionUrl property in $scriptDir/.mvn/wrapper/maven-wrapper.properties"
+
+case "${distributionUrl##*/}" in
+maven-mvnd-*bin.*)
+  MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/
+  case "${PROCESSOR_ARCHITECTURE-}${PROCESSOR_ARCHITEW6432-}:$(uname -a)" in
+  *AMD64:CYGWIN* | *AMD64:MINGW*) distributionPlatform=windows-amd64 ;;
+  :Darwin*x86_64) distributionPlatform=darwin-amd64 ;;
+  :Darwin*arm64) distributionPlatform=darwin-aarch64 ;;
+  :Linux*x86_64*) distributionPlatform=linux-amd64 ;;
+  *)
+    echo "Cannot detect native platform for mvnd on $(uname)-$(uname -m), use pure java version" >&2
+    distributionPlatform=linux-amd64
+    ;;
+  esac
+  distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"
+  ;;
+maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
+*) MVN_CMD="mvn${scriptName#mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
+esac
+
+# apply MVNW_REPOURL and calculate MAVEN_HOME
+# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>
+[ -z "${MVNW_REPOURL-}" ] || distributionUrl="$MVNW_REPOURL$_MVNW_REPO_PATTERN${distributionUrl#*"$_MVNW_REPO_PATTERN"}"
+distributionUrlName="${distributionUrl##*/}"
+distributionUrlNameMain="${distributionUrlName%.*}"
+distributionUrlNameMain="${distributionUrlNameMain%-bin}"
+MAVEN_USER_HOME="${MAVEN_USER_HOME:-${HOME}/.m2}"
+MAVEN_HOME="${MAVEN_USER_HOME}/wrapper/dists/${distributionUrlNameMain-}/$(hash_string "$distributionUrl")"
+
+exec_maven() {
+  unset MVNW_VERBOSE MVNW_USERNAME MVNW_PASSWORD MVNW_REPOURL || :
+  exec "$MAVEN_HOME/bin/$MVN_CMD" "$@" || die "cannot exec $MAVEN_HOME/bin/$MVN_CMD"
+}
+
+if [ -d "$MAVEN_HOME" ]; then
+  verbose "found existing MAVEN_HOME at $MAVEN_HOME"
+  exec_maven "$@"
+fi
+
+case "${distributionUrl-}" in
+*?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
+*) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
+esac
+
+# prepare tmp dir
+if TMP_DOWNLOAD_DIR="$(mktemp -d)" && [ -d "$TMP_DOWNLOAD_DIR" ]; then
+  clean() { rm -rf -- "$TMP_DOWNLOAD_DIR"; }
+  trap clean HUP INT TERM EXIT
+else
+  die "cannot create temp dir"
+fi
+
+mkdir -p -- "${MAVEN_HOME%/*}"
+
+# Download and Install Apache Maven
+verbose "Couldn't find MAVEN_HOME, downloading and installing it ..."
+verbose "Downloading from: $distributionUrl"
+verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"
+
+# select .zip or .tar.gz
+if ! command -v unzip >/dev/null; then
+  distributionUrl="${distributionUrl%.zip}.tar.gz"
+  distributionUrlName="${distributionUrl##*/}"
+fi
+
+# verbose opt
+__MVNW_QUIET_WGET=--quiet __MVNW_QUIET_CURL=--silent __MVNW_QUIET_UNZIP=-q __MVNW_QUIET_TAR=''
+[ "${MVNW_VERBOSE-}" != true ] || __MVNW_QUIET_WGET='' __MVNW_QUIET_CURL='' __MVNW_QUIET_UNZIP='' __MVNW_QUIET_TAR=v
+
+# normalize http auth
+case "${MVNW_PASSWORD:+has-password}" in
+'') MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+esac
+
+if [ -z "${MVNW_USERNAME-}" ] && command -v wget >/dev/null; then
+  verbose "Found wget ... using wget"
+  wget ${__MVNW_QUIET_WGET:+"$__MVNW_QUIET_WGET"} "$distributionUrl" -O "$TMP_DOWNLOAD_DIR/$distributionUrlName" || die "wget: Failed to fetch $distributionUrl"
+elif [ -z "${MVNW_USERNAME-}" ] && command -v curl >/dev/null; then
+  verbose "Found curl ... using curl"
+  curl ${__MVNW_QUIET_CURL:+"$__MVNW_QUIET_CURL"} -f -L -o "$TMP_DOWNLOAD_DIR/$distributionUrlName" "$distributionUrl" || die "curl: Failed to fetch $distributionUrl"
+elif set_java_home; then
+  verbose "Falling back to use Java to download"
+  javaSource="$TMP_DOWNLOAD_DIR/Downloader.java"
+  targetZip="$TMP_DOWNLOAD_DIR/$distributionUrlName"
+  cat >"$javaSource" <<-END
+	public class Downloader extends java.net.Authenticator
+	{
+	  protected java.net.PasswordAuthentication getPasswordAuthentication()
+	  {
+	    return new java.net.PasswordAuthentication( System.getenv( "MVNW_USERNAME" ), System.getenv( "MVNW_PASSWORD" ).toCharArray() );
+	  }
+	  public static void main( String[] args ) throws Exception
+	  {
+	    setDefault( new Downloader() );
+	    java.nio.file.Files.copy( java.net.URI.create( args[0] ).toURL().openStream(), java.nio.file.Paths.get( args[1] ).toAbsolutePath().normalize() );
+	  }
+	}
+	END
+  # For Cygwin/MinGW, switch paths to Windows format before running javac and java
+  verbose " - Compiling Downloader.java ..."
+  "$(native_path "$JAVACCMD")" "$(native_path "$javaSource")" || die "Failed to compile Downloader.java"
+  verbose " - Running Downloader.java ..."
+  "$(native_path "$JAVACMD")" -cp "$(native_path "$TMP_DOWNLOAD_DIR")" Downloader "$distributionUrl" "$(native_path "$targetZip")"
+fi
+
+# If specified, validate the SHA-256 sum of the Maven distribution zip file
+if [ -n "${distributionSha256Sum-}" ]; then
+  distributionSha256Result=false
+  if [ "$MVN_CMD" = mvnd.sh ]; then
+    echo "Checksum validation is not supported for maven-mvnd." >&2
+    echo "Please disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2
+    exit 1
+  elif command -v sha256sum >/dev/null; then
+    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | sha256sum -c - >/dev/null 2>&1; then
+      distributionSha256Result=true
+    fi
+  elif command -v shasum >/dev/null; then
+    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | shasum -a 256 -c >/dev/null 2>&1; then
+      distributionSha256Result=true
+    fi
+  else
+    echo "Checksum validation was requested but neither 'sha256sum' or 'shasum' are available." >&2
+    echo "Please install either command, or disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2
+    exit 1
+  fi
+  if [ $distributionSha256Result = false ]; then
+    echo "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised." >&2
+    echo "If you updated your Maven version, you need to update the specified distributionSha256Sum property." >&2
+    exit 1
+  fi
+fi
+
+# unzip and move
+if command -v unzip >/dev/null; then
+  unzip ${__MVNW_QUIET_UNZIP:+"$__MVNW_QUIET_UNZIP"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -d "$TMP_DOWNLOAD_DIR" || die "failed to unzip"
+else
+  tar xzf${__MVNW_QUIET_TAR:+"$__MVNW_QUIET_TAR"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -C "$TMP_DOWNLOAD_DIR" || die "failed to untar"
+fi
+
+# Find the actual extracted directory name (handles snapshots where filename != directory name)
+actualDistributionDir=""
+
+# First try the expected directory name (for regular distributions)
+if [ -d "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain" ]; then
+  if [ -f "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain/bin/$MVN_CMD" ]; then
+    actualDistributionDir="$distributionUrlNameMain"
+  fi
+fi
+
+# If not found, search for any directory with the Maven executable (for snapshots)
+if [ -z "$actualDistributionDir" ]; then
+  # enable globbing to iterate over items
+  set +f
+  for dir in "$TMP_DOWNLOAD_DIR"/*; do
+    if [ -d "$dir" ]; then
+      if [ -f "$dir/bin/$MVN_CMD" ]; then
+        actualDistributionDir="$(basename "$dir")"
+        break
+      fi
+    fi
+  done
+  set -f
+fi
+
+if [ -z "$actualDistributionDir" ]; then
+  verbose "Contents of $TMP_DOWNLOAD_DIR:"
+  verbose "$(ls -la "$TMP_DOWNLOAD_DIR")"
+  die "Could not find Maven distribution directory in extracted archive"
+fi
+
+verbose "Found extracted Maven distribution directory: $actualDistributionDir"
+printf %s\\n "$distributionUrl" >"$TMP_DOWNLOAD_DIR/$actualDistributionDir/mvnw.url"
+mv -- "$TMP_DOWNLOAD_DIR/$actualDistributionDir" "$MAVEN_HOME" || [ -d "$MAVEN_HOME" ] || die "fail to move MAVEN_HOME"
+
+clean || :
+exec_maven "$@"
+</file>
+
+<file path="gateway/mvnw.cmd">
+<# : batch portion
+@REM ----------------------------------------------------------------------------
+@REM Licensed to the Apache Software Foundation (ASF) under one
+@REM or more contributor license agreements.  See the NOTICE file
+@REM distributed with this work for additional information
+@REM regarding copyright ownership.  The ASF licenses this file
+@REM to you under the Apache License, Version 2.0 (the
+@REM "License"); you may not use this file except in compliance
+@REM with the License.  You may obtain a copy of the License at
+@REM
+@REM    http://www.apache.org/licenses/LICENSE-2.0
+@REM
+@REM Unless required by applicable law or agreed to in writing,
+@REM software distributed under the License is distributed on an
+@REM "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+@REM KIND, either express or implied.  See the License for the
+@REM specific language governing permissions and limitations
+@REM under the License.
+@REM ----------------------------------------------------------------------------
+
+@REM ----------------------------------------------------------------------------
+@REM Apache Maven Wrapper startup batch script, version 3.3.4
+@REM
+@REM Optional ENV vars
+@REM   MVNW_REPOURL - repo url base for downloading maven distribution
+@REM   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+@REM   MVNW_VERBOSE - true: enable verbose log; others: silence the output
+@REM ----------------------------------------------------------------------------
+
+@IF "%__MVNW_ARG0_NAME__%"=="" (SET __MVNW_ARG0_NAME__=%~nx0)
+@SET __MVNW_CMD__=
+@SET __MVNW_ERROR__=
+@SET __MVNW_PSMODULEP_SAVE=%PSModulePath%
+@SET PSModulePath=
+@FOR /F "usebackq tokens=1* delims==" %%A IN (`powershell -noprofile "& {$scriptDir='%~dp0'; $script='%__MVNW_ARG0_NAME__%'; icm -ScriptBlock ([Scriptblock]::Create((Get-Content -Raw '%~f0'))) -NoNewScope}"`) DO @(
+  IF "%%A"=="MVN_CMD" (set __MVNW_CMD__=%%B) ELSE IF "%%B"=="" (echo %%A) ELSE (echo %%A=%%B)
+)
+@SET PSModulePath=%__MVNW_PSMODULEP_SAVE%
+@SET __MVNW_PSMODULEP_SAVE=
+@SET __MVNW_ARG0_NAME__=
+@SET MVNW_USERNAME=
+@SET MVNW_PASSWORD=
+@IF NOT "%__MVNW_CMD__%"=="" ("%__MVNW_CMD__%" %*)
+@echo Cannot start maven from wrapper >&2 && exit /b 1
+@GOTO :EOF
+: end batch / begin powershell #>
+
+$ErrorActionPreference = "Stop"
+if ($env:MVNW_VERBOSE -eq "true") {
+  $VerbosePreference = "Continue"
+}
+
+# calculate distributionUrl, requires .mvn/wrapper/maven-wrapper.properties
+$distributionUrl = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionUrl
+if (!$distributionUrl) {
+  Write-Error "cannot read distributionUrl property in $scriptDir/.mvn/wrapper/maven-wrapper.properties"
+}
+
+switch -wildcard -casesensitive ( $($distributionUrl -replace '^.*/','') ) {
+  "maven-mvnd-*" {
+    $USE_MVND = $true
+    $distributionUrl = $distributionUrl -replace '-bin\.[^.]*$',"-windows-amd64.zip"
+    $MVN_CMD = "mvnd.cmd"
+    break
+  }
+  default {
+    $USE_MVND = $false
+    $MVN_CMD = $script -replace '^mvnw','mvn'
+    break
+  }
+}
+
+# apply MVNW_REPOURL and calculate MAVEN_HOME
+# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>
+if ($env:MVNW_REPOURL) {
+  $MVNW_REPO_PATTERN = if ($USE_MVND -eq $False) { "/org/apache/maven/" } else { "/maven/mvnd/" }
+  $distributionUrl = "$env:MVNW_REPOURL$MVNW_REPO_PATTERN$($distributionUrl -replace "^.*$MVNW_REPO_PATTERN",'')"
+}
+$distributionUrlName = $distributionUrl -replace '^.*/',''
+$distributionUrlNameMain = $distributionUrlName -replace '\.[^.]*$','' -replace '-bin$',''
+
+$MAVEN_M2_PATH = "$HOME/.m2"
+if ($env:MAVEN_USER_HOME) {
+  $MAVEN_M2_PATH = "$env:MAVEN_USER_HOME"
+}
+
+if (-not (Test-Path -Path $MAVEN_M2_PATH)) {
+    New-Item -Path $MAVEN_M2_PATH -ItemType Directory | Out-Null
+}
+
+$MAVEN_WRAPPER_DISTS = $null
+if ((Get-Item $MAVEN_M2_PATH).Target[0] -eq $null) {
+  $MAVEN_WRAPPER_DISTS = "$MAVEN_M2_PATH/wrapper/dists"
+} else {
+  $MAVEN_WRAPPER_DISTS = (Get-Item $MAVEN_M2_PATH).Target[0] + "/wrapper/dists"
+}
+
+$MAVEN_HOME_PARENT = "$MAVEN_WRAPPER_DISTS/$distributionUrlNameMain"
+$MAVEN_HOME_NAME = ([System.Security.Cryptography.SHA256]::Create().ComputeHash([byte[]][char[]]$distributionUrl) | ForEach-Object {$_.ToString("x2")}) -join ''
+$MAVEN_HOME = "$MAVEN_HOME_PARENT/$MAVEN_HOME_NAME"
+
+if (Test-Path -Path "$MAVEN_HOME" -PathType Container) {
+  Write-Verbose "found existing MAVEN_HOME at $MAVEN_HOME"
+  Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
+  exit $?
+}
+
+if (! $distributionUrlNameMain -or ($distributionUrlName -eq $distributionUrlNameMain)) {
+  Write-Error "distributionUrl is not valid, must end with *-bin.zip, but found $distributionUrl"
+}
+
+# prepare tmp dir
+$TMP_DOWNLOAD_DIR_HOLDER = New-TemporaryFile
+$TMP_DOWNLOAD_DIR = New-Item -Itemtype Directory -Path "$TMP_DOWNLOAD_DIR_HOLDER.dir"
+$TMP_DOWNLOAD_DIR_HOLDER.Delete() | Out-Null
+trap {
+  if ($TMP_DOWNLOAD_DIR.Exists) {
+    try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }
+    catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }
+  }
+}
+
+New-Item -Itemtype Directory -Path "$MAVEN_HOME_PARENT" -Force | Out-Null
+
+# Download and Install Apache Maven
+Write-Verbose "Couldn't find MAVEN_HOME, downloading and installing it ..."
+Write-Verbose "Downloading from: $distributionUrl"
+Write-Verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"
+
+$webclient = New-Object System.Net.WebClient
+if ($env:MVNW_USERNAME -and $env:MVNW_PASSWORD) {
+  $webclient.Credentials = New-Object System.Net.NetworkCredential($env:MVNW_USERNAME, $env:MVNW_PASSWORD)
+}
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$webclient.DownloadFile($distributionUrl, "$TMP_DOWNLOAD_DIR/$distributionUrlName") | Out-Null
+
+# If specified, validate the SHA-256 sum of the Maven distribution zip file
+$distributionSha256Sum = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionSha256Sum
+if ($distributionSha256Sum) {
+  if ($USE_MVND) {
+    Write-Error "Checksum validation is not supported for maven-mvnd. `nPlease disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties."
+  }
+  Import-Module $PSHOME\Modules\Microsoft.PowerShell.Utility -Function Get-FileHash
+  if ((Get-FileHash "$TMP_DOWNLOAD_DIR/$distributionUrlName" -Algorithm SHA256).Hash.ToLower() -ne $distributionSha256Sum) {
+    Write-Error "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised. If you updated your Maven version, you need to update the specified distributionSha256Sum property."
+  }
+}
+
+# unzip and move
+Expand-Archive "$TMP_DOWNLOAD_DIR/$distributionUrlName" -DestinationPath "$TMP_DOWNLOAD_DIR" | Out-Null
+
+# Find the actual extracted directory name (handles snapshots where filename != directory name)
+$actualDistributionDir = ""
+
+# First try the expected directory name (for regular distributions)
+$expectedPath = Join-Path "$TMP_DOWNLOAD_DIR" "$distributionUrlNameMain"
+$expectedMvnPath = Join-Path "$expectedPath" "bin/$MVN_CMD"
+if ((Test-Path -Path $expectedPath -PathType Container) -and (Test-Path -Path $expectedMvnPath -PathType Leaf)) {
+  $actualDistributionDir = $distributionUrlNameMain
+}
+
+# If not found, search for any directory with the Maven executable (for snapshots)
+if (!$actualDistributionDir) {
+  Get-ChildItem -Path "$TMP_DOWNLOAD_DIR" -Directory | ForEach-Object {
+    $testPath = Join-Path $_.FullName "bin/$MVN_CMD"
+    if (Test-Path -Path $testPath -PathType Leaf) {
+      $actualDistributionDir = $_.Name
+    }
+  }
+}
+
+if (!$actualDistributionDir) {
+  Write-Error "Could not find Maven distribution directory in extracted archive"
+}
+
+Write-Verbose "Found extracted Maven distribution directory: $actualDistributionDir"
+Rename-Item -Path "$TMP_DOWNLOAD_DIR/$actualDistributionDir" -NewName $MAVEN_HOME_NAME | Out-Null
+try {
+  Move-Item -Path "$TMP_DOWNLOAD_DIR/$MAVEN_HOME_NAME" -Destination $MAVEN_HOME_PARENT | Out-Null
+} catch {
+  if (! (Test-Path -Path "$MAVEN_HOME" -PathType Container)) {
+    Write-Error "fail to move MAVEN_HOME"
+  }
+} finally {
+  try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }
+  catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }
+}
+
+Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
+</file>
+
+<file path="gateway/pom.xml">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.0.7</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.Hotel</groupId>
+	<artifactId>gateway</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name/>
+	<description/>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+		</scm>
+	<properties>
+		<java.version>21</java.version>
+		<spring-cloud.version>2025.1.1</spring-cloud.version>
+	</properties>
+	<dependencies>
+		<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway-server-webmvc</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>5.0.1</version>
+		</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+</file>
+
+<file path="gateway/src/main/java/com/Hotel/gateway/GatewayApplication.java">
+package com.Hotel.gateway;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class GatewayApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(GatewayApplication.class, args);
+	}
+
+}
+</file>
+
+<file path="gateway/src/main/resources/application.yaml">
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: hoteles-service
+              uri: lb://hoteles-service
+              predicates:
+                - Path=/api/v1/hoteles/**
+
+            - id: productos-service
+              uri: lb://productos-service
+              predicates:
+                - Path=/api/v1/productos/**
+
+            - id: usuarios-service
+              uri: lb://usuarios-service
+              predicates:
+                - Path=/api/v1/usuarios/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+</file>
+
+<file path="hoteles/src/main/java/com/Hotel/config/WebClientConfig.java">
+package com.Hotel.config;
+
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebClientConfig {
+
+    @Bean
+    @LoadBalanced
+    public WebClient.Builder webClientBuilder(){
+        return WebClient.builder();
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/*")
+                        .allowedOriginPatterns("")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(false);
+
+            }
+        };
+    }
+}
+</file>
+
+<file path="producto/src/main/java/com/hotel/producto/Services/HabitacionValidaciones.java">
+package com.hotel.producto.Services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.hotel.producto.DTO.HabitacionDTO;
+import com.hotel.producto.Repository.HabitacionRepository;
+import com.hotel.producto.Repository.TipoHabitacionRepository;
+
+@Component // Inyección habilitada en Spring Boot
+public class HabitacionValidaciones {
+
+    @Autowired
+    private TipoHabitacionRepository tipoHabitacionRepository;
+
+    @Autowired
+    private HabitacionRepository habitacionRepository;
+
+    public boolean validarCamposHabitacion(HabitacionDTO dto) {
+        // CORREGIDO: Al ser Integer, evaluamos que no sea nulo ni menor o igual a 0
+        if (dto.getNumero() == null || dto.getNumero() <= 0) {
+            return false;
+        }
+        if (dto.getEstado() == null || dto.getEstado().trim().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean existeTipoHabitacion(Integer idTipoHab) {
+        if (idTipoHab == null) {
+            return false;
+        }
+        return tipoHabitacionRepository.existsById(idTipoHab);
+    }
+
+    // CORREGIDO: Cambiado de String a Integer para solucionar el error Java(67108979)
+    public boolean elNumeroYaExiste(Integer numero) {
+        if (numero == null) {
+            return false;
+        }
+        return habitacionRepository.existsByNumero(numero);
+    }
+
+    // Soporta el precio decimal de TipoHabitacion
+    public boolean elPrecioEsValido(Integer precio) {
+        if (precio == null || precio <= 0) {
+            return false;
+        }
+        return true;
+    }
+}
+</file>
+
+<file path="producto/src/test/java/com/hotel/producto/service/HabitacionValidacionesApplicationTest.java">
+package com.hotel.producto.service;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.hotel.producto.DTO.HabitacionDTO;
+import com.hotel.producto.Repository.HabitacionRepository;
+import com.hotel.producto.Repository.TipoHabitacionRepository;
+import com.hotel.producto.Services.HabitacionValidaciones;
+
+import net.datafaker.Faker;
+
+@ExtendWith(MockitoExtension.class)
+class HabitacionValidacionesApplicationTest {
+
+    @Mock
+    private TipoHabitacionRepository tipoHabitacionRepository;
+
+    @Mock
+    private HabitacionRepository habitacionRepository;
+
+    @InjectMocks
+    private HabitacionValidaciones habitacionValidaciones;
+
+    private Faker faker = new Faker();
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testValidarCamposHabitacion_Exitoso() {
+        HabitacionDTO dtoValido = new HabitacionDTO();
+        dtoValido.setNumero(faker.number().numberBetween(100, 999));
+        dtoValido.setEstado("Disponible");
+
+        boolean resultado = habitacionValidaciones.validarCamposHabitacion(dtoValido);
+
+        assertTrue(resultado);
+    }
+
+    @Test
+    void testValidarCamposHabitacion_NumeroInvalido() {
+        HabitacionDTO dtoInvalido = new HabitacionDTO();
+        dtoInvalido.setNumero(0);
+        dtoInvalido.setEstado("Disponible");
+
+        boolean resultado = habitacionValidaciones.validarCamposHabitacion(dtoInvalido);
+
+        assertFalse(resultado);
+    }
+
+    @Test
+    void testValidarCamposHabitacion_EstadoVacio() {
+        HabitacionDTO dtoInvalido = new HabitacionDTO();
+        dtoInvalido.setNumero(faker.number().numberBetween(100, 999));
+        dtoInvalido.setEstado("   "); 
+
+        boolean resultado = habitacionValidaciones.validarCamposHabitacion(dtoInvalido);
+
+        assertFalse(resultado);
+    }
+
+
+    @Test
+    void testExisteTipoHabitacion_Exitoso() {
+        Integer idTipoSimulado = faker.number().positive();
+        
+        // Simula que la base de datos SÍ encuentra el Tipo de Habitación
+        when(tipoHabitacionRepository.existsById(idTipoSimulado)).thenReturn(true);
+
+        boolean resultado = habitacionValidaciones.existeTipoHabitacion(idTipoSimulado);
+
+        assertTrue(resultado);
+        verify(tipoHabitacionRepository, times(1)).existsById(idTipoSimulado);
+    }
+
+    @Test
+    void testExisteTipoHabitacion_NoEncontrado() {
+        Integer idInexistente = faker.number().positive();
+        
+        // Simula que la base de datos NO encuentra el Tipo de Habitación
+        when(tipoHabitacionRepository.existsById(idInexistente)).thenReturn(false);
+
+        boolean resultado = habitacionValidaciones.existeTipoHabitacion(idInexistente);
+
+        assertFalse(resultado);
+        verify(tipoHabitacionRepository, times(1)).existsById(idInexistente);
+    }
+
+
+    @Test
+    void testElNumeroYaExiste_Verdadero() {
+        Integer numeroSimulado = faker.number().numberBetween(100, 999);
+        
+        // Simula que el número ya está registrado en la base de datos
+        when(habitacionRepository.existsByNumero(numeroSimulado)).thenReturn(true);
+
+        boolean resultado = habitacionValidaciones.elNumeroYaExiste(numeroSimulado);
+
+        assertTrue(resultado);
+        verify(habitacionRepository, times(1)).existsByNumero(numeroSimulado);
+    }
+
+    @Test
+    void testElNumeroYaExiste_Falso() {
+        Integer numeroLibre = faker.number().numberBetween(100, 999);
+        
+        // Simula que el número está libre (no existe en la base de datos)
+        when(habitacionRepository.existsByNumero(numeroLibre)).thenReturn(false);
+
+        boolean resultado = habitacionValidaciones.elNumeroYaExiste(numeroLibre);
+
+        assertFalse(resultado);
+        verify(habitacionRepository, times(1)).existsByNumero(numeroLibre);
+    }
+
+    @Test
+    void testElPrecioEsValido_Exitoso() {
+        Integer precioValido = faker.number().numberBetween(50, 500);
+
+        boolean resultado = habitacionValidaciones.elPrecioEsValido(precioValido);
+
+        assertTrue(resultado);
+    }
+
+    @Test
+    void testElPrecioEsValido_NegativoOCero() {
+        Integer precioInvalido = 0; // Precios menores o iguales a cero son inválidos
+
+        boolean resultado = habitacionValidaciones.elPrecioEsValido(precioInvalido);
+
+        assertFalse(resultado);
+    }
+}
+</file>
+
+<file path="usuarios/src/main/java/com/Hotel/usuarios/service/UsuarioValidaciones.java">
+package com.Hotel.usuarios.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.Hotel.usuarios.model.Usuario;
+import com.Hotel.usuarios.repository.RolesRepository;
+import com.Hotel.usuarios.repository.UsuarioRepository;
+
+public class UsuarioValidaciones {
+
+    @Autowired
+    private RolesRepository rolesRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public boolean validarRegrasNegocio(Usuario usuario) {
+        if (usuario.getCorreo() != null && !usuario.getCorreo().contains("@")) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    public boolean existeRolAsignado(Usuario usuario) {
+        if (usuario.getRoles() == null || usuario.getRoles().getIdroles() == null) { 
+            return false;
+        }
+        return rolesRepository.existsById(usuario.getRoles().getIdroles());
+    }
+
+    public boolean elCorreoYaExiste(String correo) {
+        if (correo == null || correo.trim().isEmpty()) {
+            return false;
+        }
+        return usuarioRepository.existsByCorreo(correo);
+    }
+}
+</file>
+
+<file path="usuarios/src/test/java/com/Hotel/usuarios/Service/UsuarioValidacionesApplicationTest.java">
+package com.Hotel.usuarios.Service;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.Hotel.usuarios.model.Usuario;
+import com.Hotel.usuarios.model.Roles;
+import com.Hotel.usuarios.repository.RolesRepository;
+import com.Hotel.usuarios.repository.UsuarioRepository;
+import com.Hotel.usuarios.service.UsuarioValidaciones;
+
+import net.datafaker.Faker;
+
+@ExtendWith(MockitoExtension.class)
+public class UsuarioValidacionesApplicationTest {
+
+    @Mock
+    private RolesRepository rolesRepository;
+
+    @Mock
+    private UsuarioRepository usuarioRepository;
+
+    @InjectMocks
+    private UsuarioValidaciones usuarioValidaciones;
+
+    private Faker faker = new Faker();
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+
+    @Test
+    void testValidarRegrasNegocio_CorreoValido() {
+        Usuario usuarioValido = new Usuario();
+        usuarioValido.setNombre(faker.residentEvil().character());
+        usuarioValido.setCorreo(faker.internet().emailAddress()); 
+
+        // WHEN: Ejecutamos la regla de negocio
+        boolean resultado = usuarioValidaciones.validarRegrasNegocio(usuarioValido);
+
+        // THEN: Debería dar verdadero
+        assertTrue(resultado, "El formato de correo válido debería ser aceptado");
+    }
+
+    @Test
+    void testValidarRegrasNegocio_CorreoInvalido() {
+        // GIVEN: Un usuario con un correo sin arroba
+        Usuario usuarioInvalido = new Usuario();
+        usuarioInvalido.setNombre(faker.residentEvil().character());
+        usuarioInvalido.setCorreo("umbrella_corporation_email.com"); 
+
+        // WHEN: Ejecutamos la regla de negocio
+        boolean resultado = usuarioValidaciones.validarRegrasNegocio(usuarioInvalido);
+
+        // THEN: Debería dar falso
+        assertFalse(resultado, "El formato de correo sin '@' debería ser rechazado");
+    }
+
+
+    @Test
+    void testElCorreoYaExiste_Verdadero() {
+        // GIVEN: Un correo que ya está registrado en el sistema
+        String correoRegistrado = faker.internet().emailAddress();
+        when(usuarioRepository.existsByCorreo(correoRegistrado)).thenReturn(true);
+
+        // WHEN: Consultamos la validación
+        boolean resultado = usuarioValidaciones.elCorreoYaExiste(correoRegistrado);
+
+        // THEN: Validamos que retorne true y consulte al repositorio
+        assertTrue(resultado);
+        verify(usuarioRepository, times(1)).existsByCorreo(correoRegistrado);
+    }
+
+    @Test
+    void testElCorreoYaExiste_Falso() {
+        String correoNuevo = faker.internet().emailAddress();
+        when(usuarioRepository.existsByCorreo(correoNuevo)).thenReturn(false);
+
+        // WHEN: Consultamos la validación
+        boolean resultado = usuarioValidaciones.elCorreoYaExiste(correoNuevo);
+
+        // THEN: Validamos que retorne false y consulte al repositorio
+        assertFalse(resultado);
+        verify(usuarioRepository, times(1)).existsByCorreo(correoNuevo);
+    }
+
+    @Test
+    void testExisteRolAsignado_Exitoso() {
+        Integer idRolSimulado = 1;
+        
+        Roles rolFalso = new Roles();
+        rolFalso.setIdroles(idRolSimulado);
+        rolFalso.setNombre("Administracion");
+
+        Usuario usuarioConRol = new Usuario();
+        usuarioConRol.setRoles(rolFalso);
+
+        when(rolesRepository.existsById(idRolSimulado)).thenReturn(true);
+
+        // WHEN: Validamos si el rol existe
+        boolean resultado = usuarioValidaciones.existeRolAsignado(usuarioConRol);
+
+        // THEN: Verificaciones
+        assertTrue(resultado, "El rol existe en el repositorio, debería ser verídico");
+        verify(rolesRepository, times(1)).existsById(idRolSimulado);
+    }
+
+    @Test
+    void testExisteRolAsignado_NoEncontrado() {
+        // GIVEN: Un usuario con un ID de rol que no existe en el sistema
+        Integer idRolInexistente = 99;
+        
+        Roles rolInvalido = new Roles();
+        rolInvalido.setIdroles(idRolInexistente);
+
+        Usuario usuarioConRolInvalido = new Usuario();
+        usuarioConRolInvalido.setRoles(rolInvalido);
+
+        when(rolesRepository.existsById(idRolInexistente)).thenReturn(false);
+
+        // WHEN: Validamos
+        boolean resultado = usuarioValidaciones.existeRolAsignado(usuarioConRolInvalido);
+
+        // THEN: Verificaciones
+        assertFalse(resultado, "El rol no existe en el sistema, debería ser rechazado");
+        verify(rolesRepository, times(1)).existsById(idRolInexistente);
+    }
+
+    @Test
+    void testExisteRolAsignado_RolesNull() {
+        // GIVEN: Un usuario que fue enviado sin el objeto de Roles asignado
+        Usuario usuarioSinRol = new Usuario();
+        usuarioSinRol.setRoles(null);
+
+        // WHEN: Validamos
+        boolean resultado = usuarioValidaciones.existeRolAsignado(usuarioSinRol);
+
+        // THEN: Debería denegar el paso con un false controlado sin caer en NullPointerException
+        assertFalse(resultado, "Un usuario con objeto de rol nulo debe devolver falso");
+    }
+}
+</file>
 
 <file path="eureka/.gitattributes">
 /mvnw text eol=lf
@@ -688,95 +1794,6 @@ try {
 }
 
 Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
-</file>
-
-<file path="eureka/pom.xml">
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.7</version>
-        <relativePath/>
-    </parent>
-    <groupId>com.hotel</groupId>
-    <artifactId>eureka-server</artifactId> <version>0.0.1-SNAPSHOT</version>
-    <name>eureka-server</name>
-    <description>Servidor de Descubrimiento Eureka</description>
-    
-    <properties>
-        <java.version>21</java.version>
-        <spring-cloud.version>2025.1.1</spring-cloud.version>
-    </properties>
-    
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-    
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-</project>
-</file>
-
-<file path="eureka/src/main/java/com/hotel/eureka/EurekaApplication.java">
-package com.hotel.eureka;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-
-@SpringBootApplication
-@EnableEurekaServer
-public class EurekaApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(EurekaApplication.class, args);
-	}
-
-}
-</file>
-
-<file path="eureka/src/main/resources/application.yaml">
-server:
-  port: 8761
-
-spring:
-  application:
-    name: eureka-server
-
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
 </file>
 
 <file path="eureka/src/test/java/com/hotel/eureka/EurekaApplicationTests.java">
@@ -1960,14 +2977,31 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebClientConfig {
 
     @Bean
     @LoadBalanced
-    public WebClient.Builder webClientBuilder() {
+    public WebClient.Builder webClientBuilder(){
         return WebClient.builder();
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/*")
+                        .allowedOriginPatterns("")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(false);
+
+            }
+        };
     }
 }
 </file>
@@ -3154,6 +4188,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 
     @Query("SELECT u FROM Usuario u WHERE u.idUsuario = :id")
     Usuario buscarPorId(@Param("id") Integer id);
+
+    boolean existsByCorreo(String correo);
 }
 </file>
 
@@ -3409,6 +4445,9 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
+    private UsuarioValidaciones usuarioValidaciones;
+
+    @Autowired
     private WebClient.Builder webClientBuilder;
 
 
@@ -3430,8 +4469,22 @@ public class UsuarioService {
                 .toList();
     }
 
-    public Usuario guardarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    @Transactional
+    public Usuario guardarUsuario(Usuario nuevoUsuario) {
+        
+        if (!usuarioValidaciones.validarRegrasNegocio(nuevoUsuario)) {
+            throw new RuntimeException("El formato del correo es invalido");
+        }
+
+        if (usuarioValidaciones.elCorreoYaExiste(nuevoUsuario.getCorreo())) {
+            throw new RuntimeException("El correo electrónico ya se encuentra registrado.");
+        }
+
+        if (!usuarioValidaciones.existeRolAsignado(nuevoUsuario)) {
+            throw new RuntimeException("El Rol asignado al usuario no existe ");
+        }
+
+        return usuarioRepository.save(nuevoUsuario);
     }
 
     public String eliminar(Integer id) {
@@ -3459,7 +4512,6 @@ public class UsuarioService {
         
         return dto;
     }
-
 }
 </file>
 
@@ -3827,6 +4879,95 @@ class UsuariosApplicationTests {
 	}
 
 }
+</file>
+
+<file path="eureka/pom.xml">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.0.7</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.hotel</groupId>
+    <artifactId>eureka-server</artifactId> <version>0.0.1-SNAPSHOT</version>
+    <name>eureka-server</name>
+    <description>Servidor de Descubrimiento Eureka</description>
+    
+    <properties>
+        <java.version>21</java.version>
+        <spring-cloud.version>2025.1.1</spring-cloud.version>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+</file>
+
+<file path="eureka/src/main/java/com/hotel/eureka/EurekaApplication.java">
+package com.hotel.eureka;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EurekaApplication.class, args);
+	}
+
+}
+</file>
+
+<file path="eureka/src/main/resources/application.yaml">
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
 </file>
 
 <file path="hoteles/pom.xml">
@@ -5098,10 +6239,8 @@ public class ProductoApplication {
 package com.hotel.producto.Repository;
 
 import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import com.hotel.producto.model.Habitacion;
 
 @Repository
@@ -5116,8 +6255,8 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
     // Buscar todas las habitaciones de un hotel específico (usando el ID del hotel)
     List<Habitacion> findByIdHotel(Integer idHotel);
 
-
-    
+    // CORREGIDO: Ahora recibe un Integer para ser compatible con tu DTO y el validador
+    boolean existsByNumero(Integer numero);
 }
 </file>
 
@@ -5184,9 +6323,9 @@ public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
 
     List<Servicio> findByNombreContainingIgnoreCase(String nombre);
 
-    List<Servicio> findByPrecioLessThanEqual(Double precio);
+    List<Servicio> findByPrecioLessThanEqual(Integer precio);
 
-    List<Servicio> findByPrecioBetween(Double precioMin, Double precioMax);
+    List<Servicio> findByPrecioBetween(Integer precioMin, Integer precioMax);
 
 
 }
@@ -5871,7 +7010,7 @@ class ServicioApplicationTest {
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.6.0</version>
+			<version>3.0.0</version>
 		</dependency>
 			<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -5943,6 +7082,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebClientConfig {
@@ -5951,6 +7092,21 @@ public class WebClientConfig {
     @LoadBalanced
     public WebClient.Builder webClientBuilder(){
         return WebClient.builder();
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/*")
+                        .allowedOriginPatterns("")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(false);
+
+            }
+        };
     }
 }
 </file>
@@ -6173,7 +7329,7 @@ spring:
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.6.0</version>
+            <version>3.0.0</version>
         </dependency>
 		<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -6333,119 +7489,6 @@ public class TipoHabitacion {
     @OneToMany(mappedBy = "tipoHabitacion")
     private List<Habitacion> habitaciones;
 }
-</file>
-
-<file path="producto/src/main/java/com/hotel/producto/Services/HabitacionService.java">
-package com.hotel.producto.Services;
-
-    import java.util.List;
-
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Service;
-    import org.springframework.web.reactive.function.client.WebClient;
-
-    import com.hotel.producto.DTO.HabitacionDTO;
-    import com.hotel.producto.DTO.TipoHabitacionDTO;
-    import com.hotel.producto.Repository.HabitacionRepository;
-    import com.hotel.producto.Repository.TipoHabitacionRepository;
-    import com.hotel.producto.model.Habitacion;
-    import com.hotel.producto.model.TipoHabitacion;
-
-    import jakarta.transaction.Transactional;
-
-    @Service
-    @Transactional
-    public class HabitacionService {
-
-        @Autowired
-        public HabitacionRepository habitacionRepository;
-
-        @Autowired
-        public TipoHabitacionRepository tipoHabitacionRepository;
-
-        @Autowired
-        private WebClient.Builder webClientBuilder;
-        
-        public List<HabitacionDTO> obtenerTodo() {
-            return habitacionRepository.findAll().stream()
-                    .map(this::convertirADTO)
-                    .toList();
-        }
-
-        public HabitacionDTO buscarPorId(Integer id_habitacion) {
-            Habitacion habitacion = habitacionRepository.findById(id_habitacion)
-                    .orElseThrow(() -> new RuntimeException("La habitacion no existe"));
-            return convertirADTO(habitacion);
-        }
-
-        public HabitacionDTO guardarHabitacion(HabitacionDTO dto) {
-        Habitacion habitacion = new Habitacion();
-        habitacion.setIdHotel(dto.getIdHotel());
-        habitacion.setNumero(dto.getNumero());
-        habitacion.setEstado(dto.getEstado());
-
-        if (dto.getTipoHabitacion() != null && dto.getTipoHabitacion().getIdTipo() != null) {
-            TipoHabitacion tipo = tipoHabitacionRepository.findById(dto.getTipoHabitacion().getIdTipo())
-                    .orElseThrow(() -> new RuntimeException("Tipo de habitación no encontrado"));
-            habitacion.setTipoHabitacion(tipo);
-        }
-
-        Habitacion nuevaHabitacion = habitacionRepository.save(habitacion);
-        return convertirADTO(nuevaHabitacion);
-    }
-
-
-        public String eliminar(Integer id) {
-            try {
-                Habitacion habitacion = habitacionRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("¡Imposible eliminar! La habitacion con ID " + id + " no existe."));
-                habitacionRepository.delete(habitacion);
-                return "La habitacion " + habitacion.getNumero() + "' ha sido retirado del hotel exitosamente.";
-            } catch (RuntimeException e) {
-                return e.getMessage();
-            }
-        }   
-        
-        public List<HabitacionDTO> buscarPorEstado(String estado) {
-            return habitacionRepository.findByEstado(estado).stream()
-                    .map(this::convertirADTO)
-                    .toList();
-        }
-
-        private HabitacionDTO convertirADTO(Habitacion hab) {
-            HabitacionDTO dto = new HabitacionDTO();
-            dto.setIdHotel(hab.getIdHotel());
-            dto.setIdHabitacion(hab.getIdHabitacion());
-            dto.setNumero(hab.getNumero());
-            dto.setEstado(hab.getEstado());
-
-            if (hab.getTipoHabitacion() != null) {
-                TipoHabitacionDTO tipoDto = new TipoHabitacionDTO();
-                tipoDto.setIdTipo(hab.getTipoHabitacion().getIdTipo());
-                tipoDto.setNombre(hab.getTipoHabitacion().getNombre());
-                tipoDto.setCapacidad(hab.getTipoHabitacion().getCapacidad());
-                tipoDto.setPrecio(hab.getTipoHabitacion().getPrecio());
-                dto.setTipoHabitacion(tipoDto);
-            }
-            return dto;
-        }
-
-        public List<HabitacionDTO> obtenerTodasLasHabitaciones() {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'obtenerTodasLasHabitaciones'");
-        }
-
-        public HabitacionDTO guardar(HabitacionDTO dtoIngreso) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'guardar'");
-        }
-
-        public HabitacionDTO actualizarEstado(Integer idHabitacion, String string) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'actualizarEstado'");
-        }
-
-    }
 </file>
 
 <file path="producto/src/main/java/com/hotel/producto/Services/HabitacionServicioService.java">
@@ -6645,71 +7688,6 @@ public class ServicioService {
         dto.setIdServicio(servicio.getIdServicio());
         dto.setNombre(servicio.getNombre());
         dto.setPrecio(servicio.getPrecio());
-        return dto;
-    }
-}
-</file>
-
-<file path="producto/src/main/java/com/hotel/producto/Services/TipoHabitacionService.java">
-package com.hotel.producto.Services;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-
-import com.hotel.producto.DTO.TipoHabitacionDTO;
-import com.hotel.producto.Repository.TipoHabitacionRepository;
-import com.hotel.producto.model.TipoHabitacion;
-
-import jakarta.transaction.Transactional;
-
-@Transactional
-@Service
-public class TipoHabitacionService {
-
-    @Autowired
-    private TipoHabitacionRepository tipoHabitacionRepository;
-
-    @Autowired
-    private WebClient.Builder webClientBuilder;
-    
-    public List<TipoHabitacionDTO> obtenerTodo() {
-        return tipoHabitacionRepository.findAll().stream()
-                .map(this::convertirADTO)
-                .toList();
-    }
-
-    public TipoHabitacionDTO buscarPorId(Integer id) {
-        TipoHabitacion tipo = tipoHabitacionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tipo de habitacion no existe"));
-        return convertirADTO(tipo);
-    }
-
-    public TipoHabitacionDTO guardarTipo(TipoHabitacion tipo) {
-        TipoHabitacion guardado = tipoHabitacionRepository.save(tipo);
-        return convertirADTO(guardado);
-    }
-
-    public String eliminar(Integer id) {
-        if (!tipoHabitacionRepository.existsById(id)) {
-            return "ID no encontrado.";
-        }
-        tipoHabitacionRepository.deleteById(id);
-        return "Tipo de habitacion eliminado.";
-    }
-
-private TipoHabitacionDTO convertirADTO(TipoHabitacion tipo) {
-        if (tipo == null) return null;
-        TipoHabitacionDTO dto = new TipoHabitacionDTO();
-
-        dto.setIdTipo(tipo.getIdTipo());
-        dto.setNombre(tipo.getNombre());
-        dto.setDescripcion(tipo.getDescripcion());
-        dto.setCapacidad(tipo.getCapacidad());
-        dto.setPrecio(tipo.getPrecio());
-
         return dto;
     }
 }
@@ -6926,6 +7904,201 @@ class TipoHabitacionApplicationTest {
         assertEquals("Deluxe Twin", resultado.getNombre());
         
         verify(tipoHabitacionRepository, times(1)).save(any(TipoHabitacion.class));
+    }
+}
+</file>
+
+<file path="producto/src/main/java/com/hotel/producto/Services/HabitacionService.java">
+package com.hotel.producto.Services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.hotel.producto.DTO.HabitacionDTO;
+import com.hotel.producto.DTO.TipoHabitacionDTO;
+import com.hotel.producto.Repository.HabitacionRepository;
+import com.hotel.producto.Repository.TipoHabitacionRepository;
+import com.hotel.producto.model.Habitacion;
+import com.hotel.producto.model.TipoHabitacion;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+public class HabitacionService {
+
+    @Autowired
+    public HabitacionRepository habitacionRepository;
+
+    @Autowired
+    public TipoHabitacionRepository tipoHabitacionRepository;
+
+    @Autowired
+    private WebClient.Builder webClientBuilder;
+
+    @Autowired
+    private HabitacionValidaciones habitacionValidaciones;
+    
+    public List<HabitacionDTO> obtenerTodo() {
+        return habitacionRepository.findAll().stream()
+                .map(this::convertirADTO)
+                .toList();
+    }
+
+    public HabitacionDTO buscarPorId(Integer id_habitacion) {
+        Habitacion habitacion = habitacionRepository.findById(id_habitacion)
+                .orElseThrow(() -> new RuntimeException("La habitacion no existe"));
+        return convertirADTO(habitacion);
+    }
+
+    public HabitacionDTO guardarHabitacion(HabitacionDTO dto) {
+        if (!habitacionValidaciones.validarCamposHabitacion(dto)) {
+            throw new RuntimeException("Datos de la habitación inválidos o incompletos");
+        }
+
+        // Ejecuta la validación enviando el Integer correspondiente de forma transparente
+        if (habitacionValidaciones.elNumeroYaExiste(dto.getNumero())) {
+            throw new RuntimeException("El número de habitación ya está registrado en el sistema");
+        }
+
+        Habitacion habitacion = new Habitacion();
+        habitacion.setIdHotel(dto.getIdHotel());
+        habitacion.setNumero(dto.getNumero());
+        habitacion.setEstado(dto.getEstado());
+
+        if (dto.getTipoHabitacion() != null && dto.getTipoHabitacion().getIdTipo() != null) {
+            TipoHabitacion tipo = tipoHabitacionRepository.findById(dto.getTipoHabitacion().getIdTipo())
+                    .orElseThrow(() -> new RuntimeException("Tipo de habitación no encontrado en el sistema"));
+            habitacion.setTipoHabitacion(tipo);
+        } else {
+            throw new RuntimeException("El tipo de habitación es obligatorio");
+        }
+
+        Habitacion nuevaHabitacion = habitacionRepository.save(habitacion);
+        return convertirADTO(nuevaHabitacion);
+    }
+
+    public String eliminar(Integer id) {
+        try {
+            Habitacion habitacion = habitacionRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("¡Imposible eliminar! La habitacion con ID " + id + " no existe."));
+            habitacionRepository.delete(habitacion);
+            return "La habitacion " + habitacion.getNumero() + "' ha sido retirado del hotel exitosamente.";
+        } catch (RuntimeException e) {
+            return e.getMessage();
+        }
+    }   
+    
+    public List<HabitacionDTO> buscarPorEstado(String estado) {
+        return habitacionRepository.findByEstado(estado).stream()
+                .map(this::convertirADTO)
+                .toList();
+    }
+
+    private HabitacionDTO convertirADTO(Habitacion hab) {
+        HabitacionDTO dto = new HabitacionDTO();
+        dto.setIdHotel(hab.getIdHotel());
+        dto.setIdHabitacion(hab.getIdHabitacion());
+        dto.setNumero(hab.getNumero());
+        dto.setEstado(hab.getEstado());
+
+        if (hab.getTipoHabitacion() != null) {
+            TipoHabitacionDTO tipoDto = new TipoHabitacionDTO();
+            tipoDto.setIdTipo(hab.getTipoHabitacion().getIdTipo());
+            tipoDto.setNombre(hab.getTipoHabitacion().getNombre());
+            tipoDto.setCapacidad(hab.getTipoHabitacion().getCapacidad());
+            tipoDto.setPrecio(hab.getTipoHabitacion().getPrecio());
+            dto.setTipoHabitacion(tipoDto);
+        }
+        return dto;
+    }
+
+    public List<HabitacionDTO> obtenerTodasLasHabitaciones() {
+        throw new UnsupportedOperationException("Unimplemented method 'obtenerTodasLasHabitaciones'");
+    }
+
+    public HabitacionDTO guardar(HabitacionDTO dtoIngreso) {
+        throw new UnsupportedOperationException("Unimplemented method 'guardar'");
+    }
+
+    public HabitacionDTO actualizarEstado(Integer idHabitacion, String string) {
+        throw new UnsupportedOperationException("Unimplemented method 'actualizarEstado'");
+    }
+}
+</file>
+
+<file path="producto/src/main/java/com/hotel/producto/Services/TipoHabitacionService.java">
+package com.hotel.producto.Services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.hotel.producto.DTO.TipoHabitacionDTO;
+import com.hotel.producto.Repository.TipoHabitacionRepository;
+import com.hotel.producto.model.TipoHabitacion;
+
+import jakarta.transaction.Transactional;
+
+@Transactional
+@Service
+public class TipoHabitacionService {
+
+    @Autowired
+    private TipoHabitacionRepository tipoHabitacionRepository;
+
+    @Autowired
+    private WebClient.Builder webClientBuilder;
+
+    @Autowired
+    private HabitacionValidaciones habitacionValidaciones;
+
+    public List<TipoHabitacionDTO> obtenerTodo() {
+        return tipoHabitacionRepository.findAll().stream()
+                .map(this::convertirADTO)
+                .toList();
+    }
+
+    public TipoHabitacionDTO buscarPorId(Integer id) {
+        TipoHabitacion tipo = tipoHabitacionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tipo de habitacion no existe"));
+        return convertirADTO(tipo);
+    }
+
+    public TipoHabitacionDTO guardarTipo(TipoHabitacion tipo) {
+        // Condicional corregida con la negación explícita (!)
+        if (!habitacionValidaciones.elPrecioEsValido(tipo.getPrecio())) {
+            throw new RuntimeException("El precio del tipo de habitación debe ser mayor a cero.");
+        }
+        
+        TipoHabitacion guardado = tipoHabitacionRepository.save(tipo);
+        return convertirADTO(guardado);
+    }
+
+    public String eliminar(Integer id) {
+        if (!tipoHabitacionRepository.existsById(id)) {
+            return "ID no encontrado.";
+        }
+        tipoHabitacionRepository.deleteById(id);
+        return "Tipo de habitacion eliminado.";
+    }
+
+    private TipoHabitacionDTO convertirADTO(TipoHabitacion tipo) {
+        if (tipo == null) return null;
+        TipoHabitacionDTO dto = new TipoHabitacionDTO();
+
+        dto.setIdTipo(tipo.getIdTipo());
+        dto.setNombre(tipo.getNombre());
+        dto.setDescripcion(tipo.getDescripcion());
+        dto.setCapacidad(tipo.getCapacidad());
+        dto.setPrecio(tipo.getPrecio());
+
+        return dto;
     }
 }
 </file>
