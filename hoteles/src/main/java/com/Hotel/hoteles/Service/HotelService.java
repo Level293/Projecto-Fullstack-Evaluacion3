@@ -3,11 +3,9 @@ package com.Hotel.hoteles.Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.Hotel.hoteles.DTO.HotelDTO;
-import com.Hotel.hoteles.Repository.HotelRepository;
 import com.Hotel.hoteles.model.Hotel;
-
+import com.Hotel.hoteles.Repository.HotelRepository;
 import jakarta.transaction.Transactional;
 
 @Service

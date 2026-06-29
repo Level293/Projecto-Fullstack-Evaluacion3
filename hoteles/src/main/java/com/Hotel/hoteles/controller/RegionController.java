@@ -1,15 +1,16 @@
 package com.Hotel.hoteles.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.Hotel.hoteles.DTO.RegionDTO;
 import com.Hotel.hoteles.model.Region;
@@ -20,7 +21,7 @@ import com.Hotel.hoteles.Service.RegionService;
 public class RegionController {
 
     @Autowired
-    public RegionService regionService;
+    public RegionService regionService; 
 
     @GetMapping
     public ResponseEntity<List<RegionDTO>> todasLasRegiones() {
@@ -37,7 +38,7 @@ public class RegionController {
             RegionDTO region = regionService.buscarPorId(id);
             return new ResponseEntity<>(region, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
