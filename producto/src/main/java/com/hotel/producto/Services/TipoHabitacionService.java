@@ -38,7 +38,6 @@ public class TipoHabitacionService {
     }
 
     public TipoHabitacionDTO guardarTipo(TipoHabitacion tipo) {
-        // Condicional corregida con la negación explícita (!)
         if (!habitacionValidaciones.elPrecioEsValido(tipo.getPrecio())) {
             throw new RuntimeException("El precio del tipo de habitación debe ser mayor a cero.");
         }

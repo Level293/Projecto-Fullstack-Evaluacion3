@@ -97,7 +97,6 @@ public class RolesController {
             // Capturamos el retorno real de la capa Service como la entidad 'Roles'
             Roles entidadGuardada = rolesService.guardarRol(roles);
             
-            // CORRECCIÓN: Se utiliza .getId() que corresponde al getter real de la entidad 'Roles'
             RolesDTO newRolDTO = rolesService.buscarPorId(entidadGuardada.getIdroles());
             
             return ResponseEntity
