@@ -1,26 +1,41 @@
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Controller\HabitacionController.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Controller\HabitacionServicioController.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Controller\ReservaHabitacionController.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Controller\ServicioController.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Controller\TipoHabitacionController.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\DTO\HabitacionDTO.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\DTO\HabitacionServicioDTO.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\DTO\ReservaHabitacionDTO.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\DTO\ServicioDTO.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\DTO\TipoHabitacionDTO.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\model\Habitacion.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\model\HabitacionServicio.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\model\ReservaHabitacion.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\model\Servicio.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\model\TipoHabitacion.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\ProductoApplication.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Repository\HabitacionRepository.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Repository\HabitacionServicioRepository.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Repository\ReservaHabitacionRepository.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Repository\ServicioRepository.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Repository\TipoHabitacionRepository.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Services\HabitacionService.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Services\HabitacionServicioService.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Services\ReservaHabitacionService.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Services\ServicioService.java
-C:\Users\cuent\Desktop\prueba 13-05\Proyecto-Fullstack-EV2\producto\src\main\java\com\hotel\producto\Services\TipoHabitacionService.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\assembler\HabitacionModelAssembler.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\assembler\HabitacionServicioModelAssembler.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\assembler\ReservaHabitacionModelAssembler.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\assembler\ServicioModelAssembler.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\assembler\TipoHabitacionModelAssembler.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\config\WebClientConfig.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v1\HabitacionController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v1\HabitacionServicioController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v1\ReservaHabitacionController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v1\ServicioController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v1\TipoHabitacionController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v2\HabitacionController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v2\HabitacionServicioController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v2\ReservaHabitacionController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v2\ServicioController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Controller\v2\TipoHabitacionController.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\DTO\HabitacionDTO.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\DTO\HabitacionServicioDTO.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\DTO\HotelExternoDTO.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\DTO\ReservaExternoDTO.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\DTO\ReservaHabitacionDTO.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\DTO\ServicioDTO.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\DTO\TipoHabitacionDTO.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\DTO\UsuarioExternoDTO.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\model\Habitacion.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\model\HabitacionServicio.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\model\ReservaHabitacion.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\model\Servicio.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\model\TipoHabitacion.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\ProductoApplication.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Repository\HabitacionRepository.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Repository\HabitacionServicioRepository.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Repository\ReservaHabitacionRepository.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Repository\ServicioRepository.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Repository\TipoHabitacionRepository.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Services\HabitacionService.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Services\HabitacionServicioService.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Services\HabitacionValidaciones.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Services\ReservaHabitacionService.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Services\ServicioService.java
+C:\Users\cuent\OneDrive\Documentos\Projecto-Fullstack-Evaluacion3\producto\src\main\java\com\hotel\producto\Services\TipoHabitacionService.java

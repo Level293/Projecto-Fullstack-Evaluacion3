@@ -23,7 +23,7 @@ public class Habitacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Habitacion")
+    @Column(name = "id_habitacion") 
     private Integer idHabitacion;
     
     @NotNull(message = "El ID del hotel es obligatorio")
@@ -31,7 +31,7 @@ public class Habitacion {
     private Integer idHotel;
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_hab", nullable = false)
+    @JoinColumn(name = "id_tipo", nullable = false)
     private TipoHabitacion tipoHabitacion;
 
     @NotNull(message = "El numero de habitacion no puede ser nulo")

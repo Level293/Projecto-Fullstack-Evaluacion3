@@ -14,9 +14,9 @@ public interface ServicioRepository extends JpaRepository<Servicio, Integer> {
 
     List<Servicio> findByNombreContainingIgnoreCase(String nombre);
 
-    List<Servicio> findByPrecioLessThanEqual(Double precio);
+    List<Servicio> findByPrecioLessThanEqual(Integer precio);
 
-    List<Servicio> findByPrecioBetween(Double precioMin, Double precioMax);
+    List<Servicio> findByPrecioBetween(Integer precioMin, Integer precioMax);
 
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.hotel.producto.DTO.TipoHabitacionDTO;
 import com.hotel.producto.Repository.TipoHabitacionRepository;
@@ -18,6 +19,12 @@ public class TipoHabitacionService {
     @Autowired
     private TipoHabitacionRepository tipoHabitacionRepository;
 
+    @Autowired
+    private WebClient.Builder webClientBuilder;
+
+    @Autowired
+    private HabitacionValidaciones habitacionValidaciones;
+
     public List<TipoHabitacionDTO> obtenerTodo() {
         return tipoHabitacionRepository.findAll().stream()
                 .map(this::convertirADTO)
@@ -31,6 +38,11 @@ public class TipoHabitacionService {
     }
 
     public TipoHabitacionDTO guardarTipo(TipoHabitacion tipo) {
+        // Condicional corregida con la negación explícita (!)
+        if (!habitacionValidaciones.elPrecioEsValido(tipo.getPrecio())) {
+            throw new RuntimeException("El precio del tipo de habitación debe ser mayor a cero.");
+        }
+        
         TipoHabitacion guardado = tipoHabitacionRepository.save(tipo);
         return convertirADTO(guardado);
     }
@@ -43,8 +55,8 @@ public class TipoHabitacionService {
         return "Tipo de habitacion eliminado.";
     }
 
-private TipoHabitacionDTO convertirADTO(TipoHabitacion tipo) {
-        if (tipo == null) return null; 
+    private TipoHabitacionDTO convertirADTO(TipoHabitacion tipo) {
+        if (tipo == null) return null;
         TipoHabitacionDTO dto = new TipoHabitacionDTO();
 
         dto.setIdTipo(tipo.getIdTipo());

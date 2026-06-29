@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.hotel.producto.DTO.HabitacionDTO;
 import com.hotel.producto.DTO.TipoHabitacionDTO;
@@ -23,6 +24,12 @@ public class HabitacionService {
 
     @Autowired
     public TipoHabitacionRepository tipoHabitacionRepository;
+
+    @Autowired
+    private WebClient.Builder webClientBuilder;
+
+    @Autowired
+    private HabitacionValidaciones habitacionValidaciones;
     
     public List<HabitacionDTO> obtenerTodo() {
         return habitacionRepository.findAll().stream()
@@ -33,25 +40,35 @@ public class HabitacionService {
     public HabitacionDTO buscarPorId(Integer id_habitacion) {
         Habitacion habitacion = habitacionRepository.findById(id_habitacion)
                 .orElseThrow(() -> new RuntimeException("La habitacion no existe"));
-        return convertirADTO(habitacion); 
+        return convertirADTO(habitacion);
     }
 
     public HabitacionDTO guardarHabitacion(HabitacionDTO dto) {
-    Habitacion habitacion = new Habitacion();
-    habitacion.setIdHotel(dto.getIdHotel()); 
-    habitacion.setNumero(dto.getNumero());
-    habitacion.setEstado(dto.getEstado());
+        if (!habitacionValidaciones.validarCamposHabitacion(dto)) {
+            throw new RuntimeException("Datos de la habitación inválidos o incompletos");
+        }
 
-    if (dto.getTipoHabitacion() != null && dto.getTipoHabitacion().getIdTipo() != null) {
-        TipoHabitacion tipo = tipoHabitacionRepository.findById(dto.getTipoHabitacion().getIdTipo())
-                .orElseThrow(() -> new RuntimeException("Tipo de habitación no encontrado"));
-        habitacion.setTipoHabitacion(tipo);
+        // Ejecuta la validación enviando el Integer correspondiente de forma transparente
+        if (habitacionValidaciones.elNumeroYaExiste(dto.getNumero())) {
+            throw new RuntimeException("El número de habitación ya está registrado en el sistema");
+        }
+
+        Habitacion habitacion = new Habitacion();
+        habitacion.setIdHotel(dto.getIdHotel());
+        habitacion.setNumero(dto.getNumero());
+        habitacion.setEstado(dto.getEstado());
+
+        if (dto.getTipoHabitacion() != null && dto.getTipoHabitacion().getIdTipo() != null) {
+            TipoHabitacion tipo = tipoHabitacionRepository.findById(dto.getTipoHabitacion().getIdTipo())
+                    .orElseThrow(() -> new RuntimeException("Tipo de habitación no encontrado en el sistema"));
+            habitacion.setTipoHabitacion(tipo);
+        } else {
+            throw new RuntimeException("El tipo de habitación es obligatorio");
+        }
+
+        Habitacion nuevaHabitacion = habitacionRepository.save(habitacion);
+        return convertirADTO(nuevaHabitacion);
     }
-
-    Habitacion nuevaHabitacion = habitacionRepository.save(habitacion);
-    return convertirADTO(nuevaHabitacion);
-}
-
 
     public String eliminar(Integer id) {
         try {
@@ -89,18 +106,14 @@ public class HabitacionService {
     }
 
     public List<HabitacionDTO> obtenerTodasLasHabitaciones() {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'obtenerTodasLasHabitaciones'");
     }
 
     public HabitacionDTO guardar(HabitacionDTO dtoIngreso) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'guardar'");
     }
 
     public HabitacionDTO actualizarEstado(Integer idHabitacion, String string) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actualizarEstado'");
     }
-
 }

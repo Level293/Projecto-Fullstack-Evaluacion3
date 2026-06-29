@@ -20,6 +20,9 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
+    private UsuarioValidaciones usuarioValidaciones;
+
+    @Autowired
     private WebClient.Builder webClientBuilder;
 
 
@@ -41,8 +44,22 @@ public class UsuarioService {
                 .toList();
     }
 
-    public Usuario guardarUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    @Transactional
+    public Usuario guardarUsuario(Usuario nuevoUsuario) {
+        
+        if (!usuarioValidaciones.validarRegrasNegocio(nuevoUsuario)) {
+            throw new RuntimeException("El formato del correo es invalido");
+        }
+
+        if (usuarioValidaciones.elCorreoYaExiste(nuevoUsuario.getCorreo())) {
+            throw new RuntimeException("El correo electrónico ya se encuentra registrado.");
+        }
+
+        if (!usuarioValidaciones.existeRolAsignado(nuevoUsuario)) {
+            throw new RuntimeException("El Rol asignado al usuario no existe ");
+        }
+
+        return usuarioRepository.save(nuevoUsuario);
     }
 
     public String eliminar(Integer id) {
@@ -70,6 +87,4 @@ public class UsuarioService {
         
         return dto;
     }
-
 }
-

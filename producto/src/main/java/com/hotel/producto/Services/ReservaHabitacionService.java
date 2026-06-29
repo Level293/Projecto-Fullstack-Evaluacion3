@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.hotel.producto.DTO.ReservaHabitacionDTO;
 import com.hotel.producto.Repository.ReservaHabitacionRepository;
@@ -18,6 +19,8 @@ public class ReservaHabitacionService {
     @Autowired
     public ReservaHabitacionRepository reservaHabRepository;
     
+    @Autowired
+    private WebClient.Builder webClientBuilder;
     public List <ReservaHabitacionDTO> obtenerTodos() {
         return reservaHabRepository.findAll().stream()
                 .map(this::convertirADTO)

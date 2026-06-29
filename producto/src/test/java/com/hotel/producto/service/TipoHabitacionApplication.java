@@ -30,6 +30,7 @@ import net.datafaker.Faker;
 @ExtendWith(MockitoExtension.class)
 class TipoHabitacionApplicationTest {
 
+    
     @Mock
     private TipoHabitacionRepository tipoHabitacionRepository; // Simulamos la tabla tipo_habitacion
 
