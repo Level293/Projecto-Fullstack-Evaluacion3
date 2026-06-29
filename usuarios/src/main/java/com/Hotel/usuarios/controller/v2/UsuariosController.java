@@ -69,7 +69,6 @@ public class UsuariosController {
         }
     }
 
-    // CORRECCIÓN 1: Se segmenta la ruta a '/correo/{correo}' para solucionar la ambigüedad en Spring.
     // Cambiado el tipo de retorno a CollectionModel porque tu servicio devuelve una List<UsuarioDTO>
     @GetMapping(value = "/correo/{correo}", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<CollectionModel<EntityModel<UsuarioDTO>>> porCorreo(@PathVariable String correo) {
@@ -98,7 +97,6 @@ public class UsuariosController {
             Usuario entidadGuardada = usuarioService.guardarUsuario(usuario);
             
             // CORRECCIÓN 3: Buscamos por el ID real de la entidad guardada para pasarlo a DTO limpio.
-            // Si en tu modelo Usuario el campo @Id se llama 'idUsuario', cámbialo a entidadGuardada.getIdUsuario()
             UsuarioDTO newUsuarioDTO = usuarioService.buscarPorId(entidadGuardada.getIdUsuario());
             
             return ResponseEntity

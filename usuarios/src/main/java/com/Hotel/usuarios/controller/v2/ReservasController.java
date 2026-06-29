@@ -99,7 +99,6 @@ public class ReservasController {
             Reservas entidadGuardada = reservasService.guardarReservas(reservas);
             
             // Convertimos la entidad guardada a DTO haciendo uso de tu método buscarPorId
-            // (Si en tu entidad el método es getId() en vez de getIdReserva(), cámbialo abajo)
             ReservaDTO newReservaDTO = reservasService.buscarPorId(entidadGuardada.getIdReserva());
             
             return ResponseEntity

@@ -66,11 +66,8 @@ public class HabitacionServicioController {
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<HabitacionServicioDTO>> registrar(@Valid @RequestBody HabitacionServicio hs) {
         try {
-            // CORRECCIÓN 1: Se cambia el tipo de la variable a 'HabitacionServicio' (Entidad) para coincidir con el Servicio
             HabitacionServicio entidadGuardada = habitacionServicioService.guardarHabitacionServicio(hs);
             
-            // CORRECCIÓN 2: Convertimos la entidad guardada a DTO usando el método de tu servicio 'buscarPorId' 
-            // o mapeándolo directamente para que el 'assembler' pueda procesarlo como exige el tipo de retorno.
             HabitacionServicioDTO dtoResponse = habitacionServicioService.buscarPorId(entidadGuardada.getIdHabServicio());
 
             return ResponseEntity
