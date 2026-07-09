@@ -6,8 +6,8 @@ V4 creamos un nuevo microservicio llamado gateway este ayuda a la hora de ejecut
 
 v6: ahora el swagger está unificado, http://localhost:8080/swagger-ui/index.html se inicializa el swagger de todos los microservicios
 
-v7: Se creo los hateoas, se implemento el cors-origin y las validaciones
+v7: Se implemento el cors-origin en los webConfig de cada microservicio y las validaciones
 
-v8: se corriguieron pequeñas cosas del controller
+v8: Se realizo la implementacion de assemblers y el hateoas en los controller separandolos en v1 y v2 para evitar confuciones
 
-v9: se realizo una actualizacion de hoteles 
+v9: Se realizo una actualizacion de hoteles 
