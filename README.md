@@ -10,4 +10,9 @@ v7: Se implemento el cors-origin en los webConfig de cada microservicio y las va
 
 v8: Se realizo la implementacion de assemblers y el hateoas en los controller separandolos en v1 y v2 para evitar confuciones
 
-v9: Se realizo una actualizacion de hoteles
+v9: Se realizo una actualizacion de hoteles 
+
+v10: Realizamos la Implementacion de docker, modificacion de los application yml ademas de agregar los hateoas faltantes por cierto problema
+
+v11: Arregle un problema minimo de docker-compose, el nombre de producto se encontraba mal ademas de agregar un @Component en uno de los ModelAssembler, tambien borre los comentarios como se pide en la rubrica
+
