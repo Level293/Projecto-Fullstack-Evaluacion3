@@ -1,10 +1,10 @@
--- 1. Tabla: Roles
+--Tabla Roles
 CREATE TABLE roles (
     ID_Roles INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
 );
 
--- 2. Tabla: Usuarios (Depende de Roles)
+--Tabla usuarios
 CREATE TABLE usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE usuarios (
     FOREIGN KEY (rol_id) REFERENCES roles(ID_Roles)
 );
 
--- 3. Tabla independiente: Reservas
+--Tabla Reservas
 CREATE TABLE reservas (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
     fecha_inicio DATE,
@@ -22,7 +22,7 @@ CREATE TABLE reservas (
     total INT NOT NULL
 );
 
--- 4. Tabla: Pago (Depende de Reservas)
+-- 4Tabla Pago 
 CREATE TABLE pago (
     ID_pago INT AUTO_INCREMENT PRIMARY KEY,
     ID_reserva INT NOT NULL,

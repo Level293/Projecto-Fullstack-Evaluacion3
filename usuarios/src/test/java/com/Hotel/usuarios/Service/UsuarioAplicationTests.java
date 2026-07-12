@@ -39,7 +39,6 @@ public class UsuarioAplicationTests {
 
     @Test
     void testBuscarPorId_Exitoso() {
-        // GIVEN: Dado un usuario con su rol asociado
         Integer idSimulado = 10;
         String nombreAleatorio = faker.residentEvil().character();
         String correoAleatorio = faker.internet().emailAddress();
@@ -58,7 +57,6 @@ public class UsuarioAplicationTests {
 
         UsuarioDTO resultado = usuarioService.buscarPorId(idSimulado);
 
-        // THEN: Validamos
         assertNotNull(resultado, "El usuario resultante no debería ser nulo");
         assertEquals(nombreAleatorio, resultado.getNombre());
         assertEquals(correoAleatorio, resultado.getCorreo());

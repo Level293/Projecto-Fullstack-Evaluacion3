@@ -21,7 +21,7 @@ import com.Hotel.hoteles.Service.RegionService;
 public class RegionController {
 
     @Autowired
-    public RegionService regionService; 
+    public RegionService regionService;
 
     @GetMapping
     public ResponseEntity<List<RegionDTO>> todasLasRegiones() {

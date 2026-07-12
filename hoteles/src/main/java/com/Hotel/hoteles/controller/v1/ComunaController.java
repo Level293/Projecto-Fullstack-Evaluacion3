@@ -37,7 +37,7 @@ public class ComunaController {
             ComunaDTO comuna = comunaService.buscarPorId(id);
             return new ResponseEntity<>(comuna, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

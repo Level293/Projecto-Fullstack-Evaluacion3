@@ -78,7 +78,6 @@ class HabitacionValidacionesApplicationTest {
     void testExisteTipoHabitacion_Exitoso() {
         Integer idTipoSimulado = faker.number().positive();
         
-        // Simula que la base de datos SÍ encuentra el Tipo de Habitación
         when(tipoHabitacionRepository.existsById(idTipoSimulado)).thenReturn(true);
 
         boolean resultado = habitacionValidaciones.existeTipoHabitacion(idTipoSimulado);
@@ -91,7 +90,6 @@ class HabitacionValidacionesApplicationTest {
     void testExisteTipoHabitacion_NoEncontrado() {
         Integer idInexistente = faker.number().positive();
         
-        // Simula que la base de datos NO encuentra el Tipo de Habitación
         when(tipoHabitacionRepository.existsById(idInexistente)).thenReturn(false);
 
         boolean resultado = habitacionValidaciones.existeTipoHabitacion(idInexistente);
@@ -104,8 +102,7 @@ class HabitacionValidacionesApplicationTest {
     @Test
     void testElNumeroYaExiste_Verdadero() {
         Integer numeroSimulado = faker.number().numberBetween(100, 999);
-        
-        // Simula que el número ya está registrado en la base de datos
+
         when(habitacionRepository.existsByNumero(numeroSimulado)).thenReturn(true);
 
         boolean resultado = habitacionValidaciones.elNumeroYaExiste(numeroSimulado);
@@ -118,7 +115,6 @@ class HabitacionValidacionesApplicationTest {
     void testElNumeroYaExiste_Falso() {
         Integer numeroLibre = faker.number().numberBetween(100, 999);
         
-        // Simula que el número está libre (no existe en la base de datos)
         when(habitacionRepository.existsByNumero(numeroLibre)).thenReturn(false);
 
         boolean resultado = habitacionValidaciones.elNumeroYaExiste(numeroLibre);
@@ -138,7 +134,7 @@ class HabitacionValidacionesApplicationTest {
 
     @Test
     void testElPrecioEsValido_NegativoOCero() {
-        Integer precioInvalido = 0; // Precios menores o iguales a cero son inválidos
+        Integer precioInvalido = 0;
 
         boolean resultado = habitacionValidaciones.elPrecioEsValido(precioInvalido);
 

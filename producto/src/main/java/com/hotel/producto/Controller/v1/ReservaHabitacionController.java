@@ -45,7 +45,7 @@ public class ReservaHabitacionController {
     }
 
     @GetMapping("/precio/{precioNoche}")
-     public ResponseEntity<List<ReservaHabitacionDTO>> buscarPorPrecioNoche(@PathVariable Integer precioNoche) {
+    public ResponseEntity<List<ReservaHabitacionDTO>> buscarPorPrecioNoche(@PathVariable Integer precioNoche) {
         List<ReservaHabitacionDTO> reservas = reservaHabService.buscarPorPrecioNoche(precioNoche);
         if (reservas.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

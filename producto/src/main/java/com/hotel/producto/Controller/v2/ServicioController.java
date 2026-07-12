@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody; // CORRECCIÓN: Importación correcta de Spring Framework
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -72,14 +72,10 @@ public class ServicioController {
     @PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<EntityModel<ServicioDTO>> registrar(@Valid @RequestBody Servicio servicio) {
         try {
-            // CORRECCIÓN 1: Se captura el retorno como 'Servicio' (Entidad) que es lo que devuelve tu capa Service
             Servicio entidadGuardada = servicioService.guardarServicio(servicio);
             
-            // CORRECCIÓN 2: Convertimos la entidad guardada a DTO mediante tu método buscarPorId
-            // (Si tu entidad usa getId() en vez de getIdServicio(), ajusta ese getter)
             ServicioDTO newServicioDTO = servicioService.buscarPorId(entidadGuardada.getIdServicio());
             
-            // CORRECCIÓN 3: Pasamos el DTO correcto al constructor de la URI y al body del assembler
             return ResponseEntity
                 .created(linkTo(methodOn(ServicioController.class).porId(newServicioDTO.getIdServicio())).toUri())
                 .body(assembler.toModel(newServicioDTO));
