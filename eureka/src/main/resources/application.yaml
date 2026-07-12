@@ -1,0 +1,23 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    
+# Expone el endpoint /actuator/health que usa el healthcheck de Docker Compose.
+# Sin esta configuración, Spring Boot 3+ restringe los endpoints de actuator
+# por defecto y Docker Compose no puede verificar si Eureka está listo.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never

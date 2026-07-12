@@ -1,0 +1,6 @@
+com\hotel\producto\service\HabitacionServicioApplicationTest.class
+com\hotel\producto\service\ReservaHabitacionApplicationTest.class
+com\hotel\producto\service\ServicioApplicationTest.class
+com\hotel\producto\service\HabitacionApplicationTest.class
+com\hotel\producto\service\TipoHabitacionApplicationTest.class
+com\hotel\producto\ProductoApplicationTests.class
