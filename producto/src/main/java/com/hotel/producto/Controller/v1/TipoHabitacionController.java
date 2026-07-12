@@ -40,7 +40,7 @@ public class TipoHabitacionController {
         try {
             TipoHabitacionDTO tipo = tipoHabitacionService.buscarPorId(id);
             return new ResponseEntity<>(tipo, HttpStatus.OK);
-        } catch (RuntimeException e) {      
+        } catch (RuntimeException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }

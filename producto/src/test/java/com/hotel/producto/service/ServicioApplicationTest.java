@@ -31,10 +31,10 @@ import net.datafaker.Faker;
 class ServicioApplicationTest {
 
     @Mock
-    private ServicioRepository servicioRepository; // Simulamos la tabla de servicios adicionales
+    private ServicioRepository servicioRepository;
 
     @InjectMocks
-    private ServicioService servicioService; // Inyectamos el mock en el servicio real
+    private ServicioService servicioService;
 
     private Faker faker = new Faker();
 
@@ -45,9 +45,8 @@ class ServicioApplicationTest {
 
     @Test
     void testBuscarPorId_Exitoso() {
-        // GIVEN: Un servicio simulado (Ej. Servicio de masajes o buffet)
         Integer idSimulado = 1;
-        String nombreServicioAleatorio = faker.food().dish() + " Premium"; // Ej: "Sushi Premium"
+        String nombreServicioAleatorio = faker.food().dish() + " Premium";
         Double precioAleatorio = faker.number().randomDouble(2, 5000, 25000);
 
         Servicio servicioFalso = new Servicio();
@@ -57,10 +56,8 @@ class ServicioApplicationTest {
 
         when(servicioRepository.findById(idSimulado)).thenReturn(Optional.of(servicioFalso));
 
-        // WHEN: Ejecutamos la consulta en el servicio
         ServicioDTO resultado = servicioService.buscarPorId(idSimulado);
 
-        // THEN: Validamos la respuesta mapeada a DTO
         assertNotNull(resultado, "El DTO del servicio no debe ser nulo");
         assertEquals(nombreServicioAleatorio, resultado.getNombre(), "El nombre mapeado debe coincidir");
         assertEquals(precioAleatorio, resultado.getPrecio(), "El precio mapeado debe coincidir");
@@ -73,7 +70,6 @@ class ServicioApplicationTest {
         Integer idInexistente = 999;
         when(servicioRepository.findById(idInexistente)).thenReturn(Optional.empty());
 
-        // Valida que el servicio lance una excepción si no encuentra el ID de servicio adicional
         assertThrows(RuntimeException.class, () -> {
             servicioService.buscarPorId(idInexistente);
         });
@@ -83,7 +79,6 @@ class ServicioApplicationTest {
 
     @Test
     void testObtenerTodo_Exitoso() {
-        // GIVEN: Una lista con 2 servicios cargados en la base de datos simulada
         List<Servicio> serviciosFalsos = new ArrayList<>();
         
         Servicio s1 = new Servicio(1, "Desayuno Americano", 8500.0);
@@ -94,10 +89,8 @@ class ServicioApplicationTest {
 
         when(servicioRepository.findAll()).thenReturn(serviciosFalsos);
 
-        // WHEN: Ejecutamos el método para listar todo
         List<ServicioDTO> resultado = servicioService.obtenerTodo();
 
-        // THEN: Comprobamos el tamaño y elementos de la lista transformada
         assertNotNull(resultado);
         assertEquals(2, resultado.size(), "Debe listar exactamente 2 servicios");
         assertEquals("Desayuno Americano", resultado.get(0).getNombre());
@@ -107,12 +100,10 @@ class ServicioApplicationTest {
 
     @Test
     void testGuardarServicio_Exitoso() {
-        // GIVEN: El objeto servicio que se enviará desde el controlador
         Servicio nuevoServicio = new Servicio();
         nuevoServicio.setNombre("Estacionamiento Privado");
         nuevoServicio.setPrecio(12000.0);
 
-        // El objeto que simula retornar la base de datos con una ID autogenerada (ID 4)
         Servicio servicioPersistido = new Servicio();
         servicioPersistido.setIdServicio(4);
         servicioPersistido.setNombre("Estacionamiento Privado");
@@ -120,10 +111,8 @@ class ServicioApplicationTest {
 
         when(servicioRepository.save(any(Servicio.class))).thenReturn(servicioPersistido);
 
-        // WHEN: Guardamos a través de la capa Service
         Servicio resultado = servicioService.guardarServicio(nuevoServicio);
 
-        // THEN: Evaluamos que se asigne correctamente la ID
         assertNotNull(resultado);
         assertEquals(4, resultado.getIdServicio());
         assertEquals("Estacionamiento Privado", resultado.getNombre());

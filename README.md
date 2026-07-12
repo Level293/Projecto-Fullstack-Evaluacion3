@@ -10,4 +10,4 @@ v7: Se implemento el cors-origin en los webConfig de cada microservicio y las va
 
 v8: Se realizo la implementacion de assemblers y el hateoas en los controller separandolos en v1 y v2 para evitar confuciones
 
-v9: Se realizo una actualizacion de hoteles 
+v9: Se realizo una actualizacion de hoteles

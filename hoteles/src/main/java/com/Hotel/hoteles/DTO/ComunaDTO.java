@@ -6,5 +6,5 @@ import lombok.Data;
 public class ComunaDTO {
     private Integer idComuna;
     private String nombre;
-    private String nombreRegion; 
+    private String nombreRegion;
 }

@@ -17,7 +17,6 @@ public class HabitacionModelAssembler implements RepresentationModelAssembler<Ha
     public EntityModel<HabitacionDTO> toModel(HabitacionDTO habitacion) {
         return EntityModel.of(habitacion,
             linkTo(methodOn(HabitacionController.class).porId(habitacion.getIdHabitacion())).withSelfRel(),
-            // Corrección aquí: apuntar al nuevo mapeo calificado de estado
             linkTo(methodOn(HabitacionController.class).porEstado(habitacion.getEstado())).withRel("por-estado"),
             linkTo(methodOn(HabitacionController.class).todasLasHabitaciones()).withRel("habitaciones"),
             linkTo(methodOn(HabitacionController.class).eliminar(habitacion.getIdHabitacion())).withRel("eliminar")

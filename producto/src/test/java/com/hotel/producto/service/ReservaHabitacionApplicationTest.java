@@ -30,10 +30,10 @@ import net.datafaker.Faker;
 class ReservaHabitacionApplicationTest {
 
     @Mock
-    private ReservaHabitacionRepository reservaHabitacionRepository; // Simulamos acceso a la tabla reserva_habitacion
+    private ReservaHabitacionRepository reservaHabitacionRepository;
 
     @InjectMocks
-    private ReservaHabitacionService reservaHabitacionService; // Inyectamos el Mock en el servicio real
+    private ReservaHabitacionService reservaHabitacionService;
 
     private Faker faker = new Faker();
 
@@ -43,31 +43,25 @@ class ReservaHabitacionApplicationTest {
     }
     @Test
     void testBuscarPorId_Exitoso() {
-        // GIVEN: Escenario con datos aleatorios simulados para una reserva de habitación
         Integer idReservaHabSimulado = 1;
         Integer precioAleatorio = faker.number().numberBetween(45000, 120000);
         Integer idReservaPadre = faker.number().numberBetween(100, 500);
 
-        // Creamos la habitación relacionada requerida por el modelo
         Habitacion habitacionFalsa = new Habitacion();
         habitacionFalsa.setIdHabitacion(101);
         habitacionFalsa.setNumero(202);
         habitacionFalsa.setEstado("Ocupada");
 
-        // Construimos la entidad ReservaHabitacion
         ReservaHabitacion reservaHabFalsa = new ReservaHabitacion();
         reservaHabFalsa.setIdReservaHab(idReservaHabSimulado);
         reservaHabFalsa.setPrecioNoche(precioAleatorio);
         reservaHabFalsa.setIdReserva(idReservaPadre);
         reservaHabFalsa.setHabitacion(habitacionFalsa);
 
-        // Entrenamos al repositorio para retornar la reserva armada
         when(reservaHabitacionRepository.findById(idReservaHabSimulado)).thenReturn(Optional.of(reservaHabFalsa));
 
-        // WHEN: Ejecutamos el método del servicio
         ReservaHabitacionDTO resultado = reservaHabitacionService.buscarPorId(idReservaHabSimulado);
 
-        // THEN: Validamos la transformación exitosa a DTO
         assertNotNull(resultado, "El DTO de la reserva de habitación no debería ser nulo");
         assertEquals(precioAleatorio, resultado.getPrecioNoche(), "El precio de la noche debe coincidir con el simulado");
         assertEquals(idReservaPadre, resultado.getIdReserva(), "El ID de la reserva padre debe coincidir");
@@ -80,7 +74,6 @@ class ReservaHabitacionApplicationTest {
         Integer idInexistente = 99;
         when(reservaHabitacionRepository.findById(idInexistente)).thenReturn(Optional.empty());
 
-        // Valida que el servicio arroje un RuntimeException si la reserva no existe
         assertThrows(RuntimeException.class, () -> {
             reservaHabitacionService.buscarPorId(idInexistente);
         });
@@ -90,12 +83,10 @@ class ReservaHabitacionApplicationTest {
 
     @Test
     void testGuardarReservaHab_Exitoso() {
-        // GIVEN: Una entidad que mandamos a guardar
         ReservaHabitacion reservaAGuardar = new ReservaHabitacion();
         reservaAGuardar.setPrecioNoche(65000);
         reservaAGuardar.setIdReserva(12);
 
-        // Entidad simulada que responde la base de datos con una ID autogenerada (ej. ID 5)
         ReservaHabitacion reservaPersistida = new ReservaHabitacion();
         reservaPersistida.setIdReservaHab(5);
         reservaPersistida.setPrecioNoche(65000);
@@ -103,10 +94,8 @@ class ReservaHabitacionApplicationTest {
 
         when(reservaHabitacionRepository.save(any(ReservaHabitacion.class))).thenReturn(reservaPersistida);
 
-        // WHEN: Ejecutamos el guardado en el servicio
         ReservaHabitacion resultado = reservaHabitacionService.guardarReservaHab(reservaAGuardar);
 
-        // THEN: Validamos que se asigne la ID simulada de forma exitosa
         assertNotNull(resultado);
         assertEquals(5, resultado.getIdReservaHab());
         verify(reservaHabitacionRepository, times(1)).save(any(ReservaHabitacion.class));

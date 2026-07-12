@@ -76,7 +76,6 @@ class HabitacionApplicationTest {
 
     @Test
     void testObtenerTodasLasHabitaciones_Exitoso() {
-        // GIVEN: Creamos una lista simulada con 2 habitaciones de la DB
         List<Habitacion> listaFalsa = new ArrayList<>();
         
         Habitacion habitacion1 = new Habitacion();

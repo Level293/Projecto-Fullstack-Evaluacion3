@@ -27,9 +27,9 @@ public class HabitacionController {
         public ResponseEntity<List<HabitacionDTO>> todosLasHabitaciones() {
             List<HabitacionDTO> habitaciones = habitacionService.obtenerTodo();
             if (habitaciones.isEmpty()) {
-                return ResponseEntity.noContent().build(); // Retorna 204 No Content de manera fluida
+                return ResponseEntity.noContent().build();
             }
-            return ResponseEntity.ok(habitaciones); // Retorna 200 OK con la lista
+            return ResponseEntity.ok(habitaciones);
         }
 
     @GetMapping("/{id}")
@@ -38,7 +38,6 @@ public class HabitacionController {
                 HabitacionDTO habitacion = habitacionService.buscarPorId(id);
                 return ResponseEntity.ok(habitacion);
             } catch (RuntimeException e) {
-                // Retorna un 404 con el mensaje real: "La habitacion no existe"
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage()); 
             }
         }
@@ -56,13 +55,10 @@ public class HabitacionController {
         public ResponseEntity<?> agregarHabitacion(@RequestBody HabitacionDTO habitacionDTO) {
             try {
                 HabitacionDTO guardada = habitacionService.guardarHabitacion(habitacionDTO);
-                return ResponseEntity.status(HttpStatus.CREATED).body(guardada); // Retorna 201 Created con el objeto
+                return ResponseEntity.status(HttpStatus.CREATED).body(guardada); 
             } catch (RuntimeException e) {
-                // Captura errores controlados ("El número de habitación ya está registrado", etc.)
-                // Postman recibirá un HTTP 400 con la explicación exacta del error.
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             } catch (Exception e) {
-                // Captura fallos inesperados (errores de sintaxis de base de datos, caídas catastróficas, etc.)
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno en el servidor al procesar la habitación");
             }
         }
@@ -72,9 +68,9 @@ public class HabitacionController {
             String resultado = habitacionService.eliminar(id);
 
             if (resultado.contains("exitosamente")) {
-                return ResponseEntity.ok(resultado); // Retorna 200 OK si se eliminó
+                return ResponseEntity.ok(resultado);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resultado); // Retorna 404 si el ID no existía
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resultado);
             }
         }
 

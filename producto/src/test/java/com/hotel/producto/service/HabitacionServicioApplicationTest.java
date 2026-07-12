@@ -1,9 +1,12 @@
 package com.hotel.producto.service;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.util.Optional;
@@ -29,10 +32,10 @@ import net.datafaker.Faker;
 class HabitacionServicioApplicationTest {
 
     @Mock
-    private HabitacionRepository habitacionRepository; // Simula la conexión a la base de datos de habitaciones
+    private HabitacionRepository habitacionRepository;
 
     @InjectMocks
-    private HabitacionService habitacionService; // Inyecta el repositorio simulado en tu servicio real
+    private HabitacionService habitacionService;
 
     private Faker faker = new Faker();
 
@@ -43,12 +46,10 @@ class HabitacionServicioApplicationTest {
 
     @Test
     void testGuardarHabitacion_Exitoso() {
-        // GIVEN: Un DTO con datos aleatorios generados por Datafaker
         HabitacionDTO dtoIngreso = new HabitacionDTO();
         dtoIngreso.setNumero(faker.number().numberBetween(100, 999));
         dtoIngreso.setEstado("Disponible");
 
-        // El objeto que simulará responder la base de datos con su ID autonumérico asignado
         Habitacion habitacionGuardada = new Habitacion();
         habitacionGuardada.setIdHabitacion(faker.number().numberBetween(1, 100));
         habitacionGuardada.setNumero(dtoIngreso.getNumero());
@@ -56,10 +57,8 @@ class HabitacionServicioApplicationTest {
 
         when(habitacionRepository.save(any(Habitacion.class))).thenReturn(habitacionGuardada);
 
-        // WHEN: Ejecutamos el método del servicio
         HabitacionDTO resultado = habitacionService.guardar(dtoIngreso);
 
-        // THEN: Verificamos que los datos devueltos coincidan con lo guardado
         assertNotNull(resultado);
         assertEquals(dtoIngreso.getNumero(), resultado.getNumero());
         verify(habitacionRepository, times(1)).save(any(Habitacion.class));
@@ -67,7 +66,6 @@ class HabitacionServicioApplicationTest {
 
     @Test
     void testBuscarPorId_Exitoso() {
-        // GIVEN: Configuramos una habitación existente en nuestra BD falsa
         Integer idSimulado = 10;
         Habitacion habitacionFalsa = new Habitacion();
         habitacionFalsa.setIdHabitacion(idSimulado);
@@ -76,10 +74,8 @@ class HabitacionServicioApplicationTest {
 
         when(habitacionRepository.findById(idSimulado)).thenReturn(Optional.of(habitacionFalsa));
 
-        // WHEN: Buscamos a través del servicio
         HabitacionDTO resultado = habitacionService.buscarPorId(idSimulado);
 
-        // THEN: Comprobamos que el mapeo a DTO sea correcto
         assertNotNull(resultado);
         assertEquals(205, resultado.getNumero());
         assertEquals("Mantenimiento", resultado.getEstado());
@@ -88,21 +84,17 @@ class HabitacionServicioApplicationTest {
 
     @Test
     void testActualizarEstado_Exitoso() {
-        // GIVEN: Una habitación que inicialmente está "Disponible"
         Integer idHabitacion = 5;
         Habitacion habitacionExistente = new Habitacion();
         habitacionExistente.setIdHabitacion(idHabitacion);
         habitacionExistente.setNumero(102);
         habitacionExistente.setEstado("Disponible");
 
-        // Respuestas del Mock
         when(habitacionRepository.findById(idHabitacion)).thenReturn(Optional.of(habitacionExistente));
         when(habitacionRepository.save(any(Habitacion.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        // WHEN: El recepcionista del hotel cambia el estado a "Ocupada"
         HabitacionDTO resultado = habitacionService.actualizarEstado(idHabitacion, "Ocupada");
 
-        // THEN: Comprobamos que el estado cambió exitosamente
         assertNotNull(resultado);
         assertEquals("Ocupada", resultado.getEstado());
         verify(habitacionRepository, times(1)).findById(idHabitacion);
@@ -111,7 +103,6 @@ class HabitacionServicioApplicationTest {
 
     @Test
     void testListarHabitacionesDisponibles() {
-        // GIVEN: Una lista simulada con 2 habitaciones que están "Disponible"
         List<Habitacion> habitacionesDisponibles = new ArrayList<>();
         
         Habitacion h1 = new Habitacion();
@@ -127,10 +118,8 @@ class HabitacionServicioApplicationTest {
 
         when(habitacionRepository.findAll()).thenReturn(habitacionesDisponibles);
 
-        // WHEN: Ejecutamos el método de búsqueda del servicio
-        List<HabitacionDTO> resultado = habitacionService.obtenerTodo(); // O habitacionService.listarDisponibles() si lo tienes específico
+        List<HabitacionDTO> resultado = habitacionService.obtenerTodo();
 
-        // THEN: Validamos que devuelva la cantidad correcta de registros
         assertNotNull(resultado);
         assertTrue(resultado.size() >= 2 || resultado.size() == habitacionesDisponibles.size());
         verify(habitacionRepository, times(1)).findAll();
